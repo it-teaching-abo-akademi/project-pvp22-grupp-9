@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="POS System version XX:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/POS_System_version_XX_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="POS System version XX/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="POS System version XX" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
