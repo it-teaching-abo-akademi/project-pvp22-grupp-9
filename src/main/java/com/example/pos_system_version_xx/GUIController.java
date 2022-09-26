@@ -6,8 +6,38 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import com.example.pos_system_version_xx.models.Barcode;
+import com.example.pos_system_version_xx.models.Order;
+import com.example.pos_system_version_xx.models.Product;
+
 
 public class GUIController {
+
+    private Order order;
+
+    public GUIController() {
+        order = new Order();
+    }
+
+    public Product findProduct(Barcode barcode) {
+        return new Product("Banana");
+    }
+
+    public void printProducts() {
+        order.printProducts();
+    }
+
+    public void addProduct(Product product) {
+        order.addProduct(product);
+    }
+
+    public void removeProduct(Product product) {
+        order.removeProduct(product);
+    }
+
+    public void addDiscountToProduct(Product product, double amount) {
+        product.setDiscount(amount);
+    }
     @FXML
     private Label welcomeText;
 

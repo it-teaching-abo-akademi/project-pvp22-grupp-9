@@ -1,5 +1,11 @@
 package com.example.pos_system_version_xx;
 
+import com.example.pos_system_version_xx.GUIElements.CashierGUI;
+import com.example.pos_system_version_xx.GUIElements.CustomerGUI;
+import com.example.pos_system_version_xx.events.CustomEvent;
+import com.example.pos_system_version_xx.events.SaleEventHandler;
+import com.example.pos_system_version_xx.models.Barcode;
+import com.example.pos_system_version_xx.models.Product;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,6 +14,98 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class GUIApplication extends Application {
+
+    public GUIApplication() {
+        customer = new CustomerGUI();
+        cashier = new CashierGUI();
+        controller = new GUIController();
+
+        cashier.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new SaleEventHandler() {
+
+        @Override
+        public void onProductAddRequested(Barcode barcode) {
+            Product product = controller.findProduct(barcode);
+            if (product == null) {
+                // error
+            }
+
+            controller.addProduct(product);
+            cashier.addProduct(product);
+            customer.addProduct(product);
+        }
+
+        @Override
+        public void onProductRemoveRequested(Product product) {
+            controller.removeProduct(product);
+            cashier.removeProduct(product);
+            customer.removeProduct(product);
+        }
+
+        @Override
+        public void onProductDiscountRequested(Product product, double amount) {
+            controller.addDiscountToProduct(product, amount);
+            cashier.updateProduct(product);
+            customer.updateProduct(product);
+        }
+
+        @Override
+        public void onStartPaymentRequested() {
+            customer.startPaymentMode();
+            cashier.startPaymentMode();
+            //controller.waitForPayment();
+        }
+
+    });
+
+    // IF WE WANT: THE CUSTOMER CAN DO STUFF
+        customer.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new SaleEventHandler() {
+
+        @Override
+        public void onProductAddRequested(Barcode barcode) {
+            Product product = controller.findProduct(barcode);
+            if (product == null) {
+                // error
+            }
+
+            controller.addProduct(product);
+            cashier.addProduct(product);
+            customer.addProduct(product);
+        }
+
+        @Override
+        public void onProductRemoveRequested(Product product) {
+            controller.removeProduct(product);
+            cashier.removeProduct(product);
+            customer.removeProduct(product);
+        }
+
+        @Override
+        public void onProductDiscountRequested(Product product, double amount) {
+                /*
+                boolean accepted = cashier.addCustomerRequest( ""+ "The customer is requesting to add a "
+                     + amount * 100
+                      + " percent discount. Accept?" );
+                 if (accepted) {
+                     cashier.requestAddDiscount(product, amount);
+                 }
+                 */
+        }
+
+        @Override
+        public void onStartPaymentRequested() {
+            customer.startPaymentMode();
+            cashier.startPaymentMode();
+            //controller.waitForPayment();
+        }
+
+    });
+}
+
+
+    private CustomerGUI customer;
+    private CashierGUI cashier;
+    private GUIController controller;
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GUIApplication.class.getResource("cashier-view.fxml"));
