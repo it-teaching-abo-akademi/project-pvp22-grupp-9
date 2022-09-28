@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
-public class Customer {
+public class Customer implements CustomerRegister{
 
     @Id
     private int customerNo;
