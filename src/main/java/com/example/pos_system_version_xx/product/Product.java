@@ -5,24 +5,31 @@ import javax.persistence.Id;
 import java.util.ArrayList;
 
 @Entity
-public class Product {
+public class Product implements ProductCatalog{
 
     @Id
     private int barcode;
     private int vatPercentage;
     private String name;
     private double discount;
-    private ArrayList<String > keywords;
+    //private ArrayList<String > keywords;
 
     public Product(){
 
     }
 
-    public Product(int barcode, int vatPercentage, String name, ArrayList<String> keywords) {
+    public Product(int barcode, int vatPercentage, String name) {   //ArrayList<String> keywords
         this.barcode = barcode;
         this.vatPercentage = vatPercentage;
         this.name = name;
-        this.keywords = keywords;
+        //this.keywords = keywords;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                '}';
     }
 
     public int getBarcode() {
@@ -49,6 +56,7 @@ public class Product {
         this.name = name;
     }
 
+    /*
     public ArrayList<String> getKeywords() {
         return keywords;
     }
@@ -56,4 +64,5 @@ public class Product {
     public void setKeywords(ArrayList<String> keywords) {
         this.keywords = keywords;
     }
+*/
 }
