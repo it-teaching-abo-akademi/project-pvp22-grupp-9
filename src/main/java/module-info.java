@@ -10,12 +10,17 @@ module com.example.pos_system_version_xx {
     requires spring.core;
     requires spring.beans;
     requires com.zaxxer.hikari;
+    requires java.transaction;
+    requires spring.aop;
 
     exports com.example.pos_system_version_xx;
     exports com.example.pos_system_version_xx.customer;
     exports com.example.pos_system_version_xx.product;
+    exports com.example.pos_system_version_xx.card;
 
     opens com.example.pos_system_version_xx to javafx.fxml, spring.core;
-    opens com.example.pos_system_version_xx.product to org.hibernate.orm.core;
-    opens com.example.pos_system_version_xx.customer to org.hibernate.orm.core;
+    opens com.example.pos_system_version_xx.product to org.hibernate.orm.core, spring.core;
+    opens com.example.pos_system_version_xx.customer to org.hibernate.orm.core, spring.core;
+    opens com.example.pos_system_version_xx.card to org.hibernate.orm.core, spring.core;
+
 }

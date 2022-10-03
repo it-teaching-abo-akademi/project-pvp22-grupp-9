@@ -1,16 +1,23 @@
 package com.example.pos_system_version_xx.card;
 
+import javax.persistence.*;
 import java.time.Month;
 import java.time.Year;
 
-public abstract class AbstractCard {
-    private Integer cardNumber;
+@Entity
+@Table
+public abstract class Card {
+
+    @Id
+    private Long cardNumber;
     private Month goodThruMonth;
     private Year goodThruYear;
     private boolean blocked;
     private boolean expired;
     private String holderName;
-    public AbstractCard(Integer cardNumber, Month goodThruMonth, Year goodThruYear, boolean blocked, boolean expired, String holderName) {
+    protected CardType cardType;
+
+    public Card(Long cardNumber, Month goodThruMonth, Year goodThruYear, boolean blocked, boolean expired, String holderName) {
         this.cardNumber = cardNumber;
         this.goodThruMonth = goodThruMonth;
         this.goodThruYear = goodThruYear;
@@ -19,11 +26,15 @@ public abstract class AbstractCard {
         this.holderName = holderName;
     }
 
-    public Integer getCardNumber() {
+    public Card() {
+
+    }
+
+    public Long getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(Integer cardNumber) {
+    public void setCardNumber(Long cardNumber) {
         this.cardNumber = cardNumber;
     }
 
@@ -65,6 +76,14 @@ public abstract class AbstractCard {
 
     public void setHolderName(String holderName) {
         this.holderName = holderName;
+    }
+
+    public void setCardType(CardType cardType) {
+        this.cardType = cardType;
+    }
+
+    public CardType getCardType() {
+        return cardType;
     }
 
     @Override
