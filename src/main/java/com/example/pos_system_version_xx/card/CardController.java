@@ -22,34 +22,34 @@ public class CardController {
     }
 
     @PostMapping(path = "/register/bonus")
-    public void registerNewCard(@RequestBody BonusCard card) {
-        if (card.getCardType() != CardType.BONUS) {
+    public void registerNewCard(@RequestBody BonusCard bonusCard) {
+        if (bonusCard.getCardType() != CardType.BONUS) {
             throw new IllegalStateException("CARD TYPE ERROR");
         }
-        cardService.addNewCard(card);
+        cardService.addNewCard(bonusCard);
     }
     @PostMapping(path = "/register/combinded")
-    public void registerNewCard(@RequestBody CombinedCard card) {
-        if (card.getCardType() != CardType.COMBINED) {
+    public void registerNewCard(@RequestBody CombinedCard combinedCard) {
+        if (combinedCard.getCardType() != CardType.COMBINED) {
             throw new IllegalStateException("CARD TYPE ERROR");
         }
-        cardService.addNewCard(card);
+        cardService.addNewCard(combinedCard);
     }
 
     @PostMapping(path = "/register/credit")
-    public void registerNewCard(@RequestBody CreditCard card) {
-        if (card.getCardType() != CardType.CREDIT) {
+    public void registerNewCard(@RequestBody CreditCard creditCard) {
+        if (creditCard.getCardType() != CardType.CREDIT) {
             throw new IllegalStateException("CARD TYPE ERROR");
         }
-        cardService.addNewCard(card);
+        cardService.addNewCard(creditCard);
     }
 
     @PostMapping(path = "/register/debit")
-    public void registerNewCard(@RequestBody DebitCard card) {
-        if (card.getCardType() != CardType.DEBIT) {
+    public void registerNewCard(@RequestBody DebitCard debitCard) {
+        if (debitCard.getCardType() != CardType.DEBIT) {
             throw new IllegalStateException("CARD TYPE ERROR");
         }
-        cardService.addNewCard(card);
+        cardService.addNewCard(debitCard);
     }
 
 
