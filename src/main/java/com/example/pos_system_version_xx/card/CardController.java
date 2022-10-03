@@ -21,10 +21,37 @@ public class CardController {
         return cardService.getCards();
     }
 
-    @PostMapping
-    public void registerNewCard(@RequestBody CreditCard card) {
+    @PostMapping(path = "/register/bonus")
+    public void registerNewCard(@RequestBody BonusCard card) {
+        if (card.getCardType() != CardType.BONUS) {
+            throw new IllegalStateException("CARD TYPE ERROR");
+        }
         cardService.addNewCard(card);
     }
+    @PostMapping(path = "/register/combinded")
+    public void registerNewCard(@RequestBody CombinedCard card) {
+        if (card.getCardType() != CardType.COMBINED) {
+            throw new IllegalStateException("CARD TYPE ERROR");
+        }
+        cardService.addNewCard(card);
+    }
+
+    @PostMapping(path = "/register/credit")
+    public void registerNewCard(@RequestBody CreditCard card) {
+        if (card.getCardType() != CardType.CREDIT) {
+            throw new IllegalStateException("CARD TYPE ERROR");
+        }
+        cardService.addNewCard(card);
+    }
+
+    @PostMapping(path = "/register/debit")
+    public void registerNewCard(@RequestBody DebitCard card) {
+        if (card.getCardType() != CardType.DEBIT) {
+            throw new IllegalStateException("CARD TYPE ERROR");
+        }
+        cardService.addNewCard(card);
+    }
+
 
     @DeleteMapping(path = "{cardNumber}")
     public void deleteCard(@PathVariable("cardNumber") Long cardNumber) {
