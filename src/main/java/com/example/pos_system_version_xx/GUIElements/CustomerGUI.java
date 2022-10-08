@@ -4,10 +4,14 @@ import com.example.pos_system_version_xx.models.Product;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.control.Label;
+import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class CustomerGUI extends Window {
+
+    @FXML private Label totalLabel;
 
     public void addProduct(Product product) {
         System.out.println(this + ": adding product " + product);
