@@ -18,7 +18,7 @@ import javafx.stage.Window;
 public class CashierGUI extends Window {
 
     //GUI elements must be accessed independently, and cannot be passed as arguments to functions
-    @FXML private Label welcomeLabel; //?
+    @FXML private Label welcomeText; //?
     @FXML private Label totalLabel;
     @FXML private Label subtotalLabel;
     @FXML private TextField givenCash; //convert this String to double
