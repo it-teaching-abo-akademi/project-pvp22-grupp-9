@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="623.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView layoutX="14.0" layoutY="125.0" prefHeight="281.0" prefWidth="292.0">
+      <TableView layoutX="14.0" layoutY="43.0" prefHeight="485.0" prefWidth="574.0" fx:id="customerTable">
         <columns>
-          <TableColumn prefWidth="75.0" text="Item" />
-          <TableColumn prefWidth="75.0" text="Price" />
+          <TableColumn prefWidth="294.0" text="Item" />
+          <TableColumn prefWidth="279.0" text="Price" />
         </columns>
       </TableView>
-      <Label layoutX="14.0" layoutY="100.0" text="Shopping Cart" />
-      <Label layoutX="14.0" layoutY="20.0" prefHeight="41.0" prefWidth="98.0" text="Total amount" />
-      <Label layoutX="92.0" layoutY="32.0" text="19,99€" fx:id="totalLabel"/>
+      <Label layoutX="154.0" layoutY="539.0" prefHeight="41.0" prefWidth="158.0" text="Total amount :">
+         <font>
+            <Font size="23.0" />
+         </font></Label>
+      <Label fx:id="customerLabel" layoutX="321.0" layoutY="544.0" text="--">
+         <font>
+            <Font size="21.0" />
+         </font></Label>
        <!-- Receipt could be automatically made after each sale
       <Button layoutX="14.0" layoutY="61.0" mnemonicParsing="false" text="Receipt"/>
       -->

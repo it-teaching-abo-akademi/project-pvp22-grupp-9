@@ -4,9 +4,12 @@ public class Product {
     private String name;
     private double discount;
 
+    private String barcode;
+
     public Product(String name) {
         this.name = name;
         this.discount = 0;
+        //this.barcode =
     }
 
     public void setDiscount(double discount) {

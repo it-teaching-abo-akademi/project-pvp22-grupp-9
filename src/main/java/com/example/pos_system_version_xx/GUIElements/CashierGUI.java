@@ -23,7 +23,9 @@ public class CashierGUI extends Window {
     @FXML private Label subtotalLabel;
     @FXML private TextField givenCash; //convert this String to double
     @FXML private TextField insertedBarcode; //you get whatever its contents are!!
-
+    @FXML private TextField givenDiscount; //convert to int
+    @FXML private TableView cartTable;
+    @FXML private TableView productTable;
     public CashierGUI() {
 
     }
@@ -33,14 +35,16 @@ public class CashierGUI extends Window {
 
     // These are called when the GUI requests something to be done
     //@FXML
-    public void requestAddProduct(Barcode barcode) {
+    public void requestAddProduct() {
+        Barcode barcode = new Barcode(insertedBarcode.getText());
         // DO SOMETHING AND THEN FIRE EVENT
         fireEvent(new ProductAddRequested(barcode));
     }
 
-    //@FXML
-    public void requestRemoveProduct(Product product) {
-        fireEvent(new ProductRemoveRequested(product));
+    @FXML
+    public void requestRemoveProduct() {
+        Product product;
+        //fireEvent(new ProductRemoveRequested(product));
     }
 
     //@FXML >> old parameters: (Product product, double discount)
@@ -49,7 +53,7 @@ public class CashierGUI extends Window {
         //Product product;
         double discount;
         //  { CODE TO GET SELECTED PRODUCT }
-        //discount = Double.parseDouble( <INSERT CREATED DISCOUNT TEXTFIELD>.getText() );
+        discount = Integer.parseInt( givenDiscount.getText() );
         //fireEvent(new ProductDiscountRequested(product, discount));
     }
 
@@ -89,7 +93,7 @@ public class CashierGUI extends Window {
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                requestAddProduct(new Barcode());
+                //requestAddProduct(new Barcode());
             }
         });
         pane.getChildren().add(addButton);

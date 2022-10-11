@@ -10,9 +10,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
-
+//@SpringBootApplication //remove comment when springboot works
 public class GUIApplication extends Application {
 
     public GUIApplication() {
@@ -120,9 +122,12 @@ public class GUIApplication extends Application {
         secondStage.setTitle("Customer");
         secondStage.setScene(scene2);
         secondStage.show();
+
+        //SpringApplication.run(SpringBootStarter.class, args);
     }
 
-    public static void main(String[] args) {
-        launch();
+    public static void main(String[] args)
+    {//SpringApplication.run(SpringBootStarter.class, args);
+            launch();
     }
 }

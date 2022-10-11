@@ -2,6 +2,7 @@ package com.example.pos_system_version_xx.GUIElements;
 
 import com.example.pos_system_version_xx.models.Product;
 import javafx.scene.Scene;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.Label;
@@ -11,7 +12,9 @@ import javafx.stage.Window;
 
 public class CustomerGUI extends Window {
 
-    @FXML private Label totalLabel;
+    @FXML private Label customerLabel;
+
+    @FXML private TableView customerTable;
 
     public void addProduct(Product product) {
         System.out.println(this + ": adding product " + product);
