@@ -7,9 +7,9 @@ public class ProductAddRequested extends CustomEvent {
 
     public static final EventType<CustomEvent> EVENT_TYPE = new EventType(CUSTOM_EVENT_TYPE, "ProductAddRequested");
 
-    private final Barcode param;
+    private final String param;
 
-    public ProductAddRequested(Barcode param) {
+    public ProductAddRequested(String param) {
         super(EVENT_TYPE);
         this.param = param;
     }

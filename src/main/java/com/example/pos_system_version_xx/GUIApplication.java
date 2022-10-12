@@ -25,7 +25,7 @@ public class GUIApplication extends Application {
         cashier.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new SaleEventHandler() {
 
         @Override
-        public void onProductAddRequested(Barcode barcode) {
+        public void onProductAddRequested(String barcode) {
             Product product = controller.findProduct(barcode);
             if (product == null) {
                 // error
@@ -57,13 +57,17 @@ public class GUIApplication extends Application {
             //controller.waitForPayment();
         }
 
+        @Override
+        public void onOpenCashboxRequested() {
+            //controller.openCashbox();
+        }
     });
 
-    // IF WE WANT: THE CUSTOMER CAN DO STUFF
+    /* IF WE WANT: THE CUSTOMER CAN DO STUFF
         customer.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new SaleEventHandler() {
 
         @Override
-        public void onProductAddRequested(Barcode barcode) {
+        public void onProductAddRequested(String barcode) {
             Product product = controller.findProduct(barcode);
             if (product == null) {
                 // error
@@ -90,7 +94,7 @@ public class GUIApplication extends Application {
                  if (accepted) {
                      cashier.requestAddDiscount(product, amount);
                  }
-                 */
+                *\
         }
 
         @Override
@@ -100,7 +104,7 @@ public class GUIApplication extends Application {
             //controller.waitForPayment();
         }
 
-    });
+    }); */
 }
 
 

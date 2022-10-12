@@ -34,11 +34,10 @@ public class CashierGUI extends Window {
     public void onHelloButtonClick() {} //This can be used as a test
 
     // These are called when the GUI requests something to be done
-    //@FXML
+    @FXML
     public void requestAddProduct() {
-        Barcode barcode = new Barcode(insertedBarcode.getText());
         // DO SOMETHING AND THEN FIRE EVENT
-        fireEvent(new ProductAddRequested(barcode));
+        fireEvent(new ProductAddRequested(insertedBarcode.getText()));
     }
 
     @FXML

@@ -9,17 +9,21 @@ import javafx.scene.control.TableView;
 import com.example.pos_system_version_xx.models.Barcode;
 import com.example.pos_system_version_xx.models.Order;
 import com.example.pos_system_version_xx.models.Product;
+import com.example.pos_system_version_xx.GET.RequestHandler;
 
 
 public class GUIController {
 
     private Order order;
 
+    private RequestHandler requestHandler;
+
     public GUIController() {
         order = new Order();
+        requestHandler = new RequestHandler();
     }
 
-    public Product findProduct(Barcode barcode) {
+    public Product findProduct(String barcode) {
         return new Product("Banana");
     }
 
@@ -38,6 +42,8 @@ public class GUIController {
     public void addDiscountToProduct(Product product, double amount) {
         product.setDiscount(amount);
     }
+
+    //public void openCashbox() { requestHandler.handlerOpenCashbox(); }
     @FXML
     private Label welcomeText;
 
