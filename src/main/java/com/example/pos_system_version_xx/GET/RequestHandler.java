@@ -12,14 +12,14 @@ public class RequestHandler {
     private static final String FIND_KEYWORD = "http://localhost:9003/rest/findByKeyword/";
     private static final String FIND_NAME = "http://localhost:9003/rest/findByName/";
 
-    private static final String OPEN_CASHBOX = "http://localhost:9001/prefix/open";
-    private static final String CASHBOX_STATUS = "http://localhost:9001/prefix/status";
+    private static final String OPEN_CASHBOX = "http://localhost:9001/cashbox/open";
+    private static final String CASHBOX_STATUS = "http://localhost:9001/cashbox/status";
 
-    private static final String CARDREADER_WAITFORPAYMENT = "http://localhost:9002/prefix/waitForPayment";
-    private static final String CARDREADER_ABORT = "http://localhost:9002/prefix/abort";
-    private static final String CARDREADER_STATUS = "http://localhost:9002/prefix/status";
-    private static final String CARDREADER_RESULT = "http://localhost:9002/prefix/result";
-    private static final String CARDREADER_RESET = "http://localhost:9002/prefix/reset";
+    private static final String CARDREADER_WAITFORPAYMENT = "http://localhost:9002/cardreader/waitForPayment";
+    private static final String CARDREADER_ABORT = "http://localhost:9002/cardreader/abort";
+    private static final String CARDREADER_STATUS = "http://localhost:9002/cardreader/status";
+    private static final String CARDREADER_RESULT = "http://localhost:9002/cardreader/result";
+    private static final String CARDREADER_RESET = "http://localhost:9002/cardreader/reset";
 
     private static final String FIND_CUSTOMER_NO = "http://localhost:9004/rest/findByCustomerNo";
     private static final String FIND_BONUS_CARD = "http://localhost:9004/rest/findByBonusCard";
