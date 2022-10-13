@@ -42,6 +42,14 @@ public class CashierGUI extends Window {
         productTable.setEditable(true);
         productTableName.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, String>("name"));
         productTablePrice.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, Double>("price"));
+        productTablePrice.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        productTablePrice.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<PRODUCT_TEST_CLASS, Double>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<PRODUCT_TEST_CLASS, Double> t) {
+                PRODUCT_TEST_CLASS p = t.getRowValue();
+                p.setPrice(t.getNewValue());
+            }
+        });
         productTableBarcode.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, String>("barcode"));
         productTable.setItems(FXCollections.observableArrayList(
                 new PRODUCT_TEST_CLASS("Banana", 1.00, ""),
