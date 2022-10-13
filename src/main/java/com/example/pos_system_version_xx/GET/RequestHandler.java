@@ -3,8 +3,10 @@ package com.example.pos_system_version_xx.GET;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class RequestHandler {
 
@@ -24,16 +26,27 @@ public class RequestHandler {
     private static final String FIND_CUSTOMER_NO = "http://localhost:9004/rest/findByCustomerNo";
     private static final String FIND_BONUS_CARD = "http://localhost:9004/rest/findByBonusCard";
 
-    public void handlerOpenCashbox() throws IOException {
-        getRequest("POST", OPEN_CASHBOX, "");
+    public static void handlerFindBarcode(String barcode) throws IOException {
+        httpRequest("GET", FIND_BARCODE, barcode, "", false);
+    }
+
+    public static void handlerFindKeyword(String keyword) throws IOException {
+        httpRequest("GET", FIND_KEYWORD, keyword, "",false);
+    }
+
+    public static void handlerFindName(String name) throws IOException {
+        httpRequest("GET", FIND_NAME, name, "",false);
+    }
+    public static void handlerOpenCashbox() throws IOException {
+        httpRequest("POST", OPEN_CASHBOX, "", "", false);
     }
 
     public static void handlerCashboxStatus() throws IOException {
-        getRequest("GET", CASHBOX_STATUS, "");
+        httpRequest("GET", CASHBOX_STATUS, "", "", false);
     }
 
     public static void handlerCardReaderWaitForPayment(double chargedAmount) throws IOException {
-        getRequest("POST", CARDREADER_WAITFORPAYMENT,  " --data \"amount=" + Double.toString(chargedAmount) + "\"");
+        httpRequest("POST", CARDREADER_WAITFORPAYMENT,  "", "amount=" + chargedAmount, true);
     }
 
     public static String findBarcode(String barcode) throws IOException {
@@ -41,13 +54,30 @@ public class RequestHandler {
     }
 
     public static void main(String[] args) throws IOException {
-        handlerCashboxStatus();
+        //handlerFindBarcode("12345");
+        //handlerFindKeyword("fruit");
+        //handlerFindName("Bananas");
+        //handlerOpenCashbox();
+        //handlerCashboxStatus();
+        //handlerCardReaderWaitForPayment(1234567890);
+        //handlerCardReaderAbort();
+        //handlerCardReaderStatus();
+        //handlerCardReaderResult(); // can only be called after payment, returns xml for payment card as response
+        //handlerCardReaderReset();
+        //handlerFindCustomerNo("1");
+        //handlerFindBonusCard("1234567890", "2999", "6");
     }
 
-    private static String getRequest(String requestType, String URL, String argument) throws IOException {
+    private static String httpRequest(String requestType, String URL, String argument, String data, boolean doOutput) throws IOException {
         java.net.URL url = new URL(URL + "/" + argument);
+        System.out.println(url);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod(requestType);
+        if (doOutput) {
+            connection.setDoOutput(true);
+            OutputStream outputStream = connection.getOutputStream();
+            outputStream.write(data.getBytes(StandardCharsets.UTF_8));
+        }
         int responseCode = connection.getResponseCode();
         System.out.println("Code : " + responseCode);
 
