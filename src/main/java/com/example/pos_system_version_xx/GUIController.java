@@ -64,36 +64,6 @@ public class GUIController {
         product.setDiscount(amount);
     }
 
-    //public void openCashbox() { requestHandler.handlerOpenCashbox(); }
-    @FXML
-    private Label welcomeText;
+    //public void openCashbox() { requestHandler.handlerOpenCashbox();
 
-    @FXML
-    private TableView<StudentsModel> tableView;
-
-    @FXML
-    private TableColumn<StudentsModel, String> tableColumn = new TableColumn<>();
-
-    public class StudentsModel {
-        String name;
-        private StringProperty firstName = new SimpleStringProperty();
-
-        public StudentsModel(String name) {
-            this.name = name;
-        }
-
-        public StringProperty firstNameProperty() {
-            return firstName;
-        }
-    }
-
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
-
-    @FXML
-    protected void onHelloButtonPress() {
-        welcomeText.setText("NOT WELCOME to JavaFX Application!");
-    }
 }

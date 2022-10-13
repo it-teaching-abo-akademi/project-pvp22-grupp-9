@@ -1,19 +1,22 @@
 package com.example.pos_system_version_xx.GUIElements;
 
 import com.example.pos_system_version_xx.events.ProductAddRequested;
-import com.example.pos_system_version_xx.events.ProductDiscountRequested;
-import com.example.pos_system_version_xx.events.ProductRemoveRequested;
-import com.example.pos_system_version_xx.models.Barcode;
+import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
 import com.example.pos_system_version_xx.models.Product;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Callback;
+import javafx.util.converter.DoubleStringConverter;
 
 public class CashierGUI extends Window {
 
@@ -24,25 +27,49 @@ public class CashierGUI extends Window {
     @FXML private TextField givenCash; //convert this String to double
     @FXML private TextField insertedBarcode; //you get whatever its contents are!!
     @FXML private TextField givenDiscount; //convert to int
-    @FXML private TableView cartTable;
-    @FXML private TableView productTable;
-    public CashierGUI() {
+    @FXML private TableView<PRODUCT_TEST_CLASS> cartTable;
+    @FXML private TableView<PRODUCT_TEST_CLASS> productTable;
 
-    }
+    @FXML private TableColumn productTableName;
+    @FXML private TableColumn productTablePrice;
+    @FXML private TableColumn productTableBarcode;
+    @FXML private TableColumn cartTableName;
+    @FXML private TableColumn cartTablePrice;
+
 
     @FXML
-    public void onHelloButtonClick() {} //This can be used as a test
+    public void onHelloButtonClick() {
+        productTable.setEditable(true);
+        productTableName.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, String>("name"));
+        productTablePrice.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, Double>("price"));
+        productTableBarcode.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, String>("barcode"));
+        productTable.setItems(FXCollections.observableArrayList(
+                new PRODUCT_TEST_CLASS("Banana", 1.00, ""),
+                new PRODUCT_TEST_CLASS("Apple", 1.00,""),
+                new PRODUCT_TEST_CLASS("Hannes", 1.00,"")
+        ));
+        cartTable.setEditable(true);
+        cartTableName.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, String>("name"));
+        cartTablePrice.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, Double>("price"));
+    } //This can be used as a test
 
     // These are called when the GUI requests something to be done
     @FXML
     public void requestAddProduct() {
-        // DO SOMETHING AND THEN FIRE EVENT
-        fireEvent(new ProductAddRequested(insertedBarcode.getText()));
+    PRODUCT_TEST_CLASS product = productTable.getSelectionModel().getSelectedItem();
+        cartTable.getItems().add(product);
+
+        //fireEvent(new ProductAddRequested(insertedBarcode.getText()));
     }
 
     @FXML
+    public void requestScanProduct() {
+        //fireEvent(new ProductAddRequested(insertedBarcode.getText()));
+    }
+    @FXML
     public void requestRemoveProduct() {
-        Product product;
+        PRODUCT_TEST_CLASS product = cartTable.getSelectionModel().getSelectedItem();
+        cartTable.getItems().remove(product);
         //fireEvent(new ProductRemoveRequested(product));
     }
 
@@ -64,12 +91,21 @@ public class CashierGUI extends Window {
 
 
     // These are called to alter the UI elements within this GUI
+
     public void addProduct(Product product) {
-        System.out.println(this + ": adding product " + product);
+        productTable.setEditable(true);
+        productTableName.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, String>("name"));
+        productTablePrice.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, Double>("price"));
+        productTableBarcode.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, String>("barcode"));
+        productTable.setItems(FXCollections.observableArrayList(
+                new PRODUCT_TEST_CLASS("Banana", 0.45, ""),
+                new PRODUCT_TEST_CLASS("apple", 0.65,""),
+                new PRODUCT_TEST_CLASS("car", 25000.50,"")
+        ));
     }
 
     public void removeProduct(Product product) {
-        System.out.println(this + ": removing product " + product);
+
     }
 
     public void updateProduct(Product product) {

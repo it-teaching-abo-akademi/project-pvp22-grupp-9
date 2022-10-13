@@ -4,14 +4,11 @@ import com.example.pos_system_version_xx.GUIElements.CashierGUI;
 import com.example.pos_system_version_xx.GUIElements.CustomerGUI;
 import com.example.pos_system_version_xx.events.CustomEvent;
 import com.example.pos_system_version_xx.events.SaleEventHandler;
-import com.example.pos_system_version_xx.models.Barcode;
 import com.example.pos_system_version_xx.models.Product;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
 //@SpringBootApplication //remove comment when springboot works
@@ -21,15 +18,15 @@ public class GUIApplication extends Application {
         customer = new CustomerGUI();
         cashier = new CashierGUI();
         controller = new GUIController();
-
         cashier.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new SaleEventHandler() {
 
         @Override
         public void onProductAddRequested(String barcode) {
-            Product product = controller.findProduct(barcode);
+            /*Product product = controller.findProduct(barcode);
             if (product == null) {
                 return;     // error
-            }
+            }*/
+            Product product = new Product();
 
             controller.addProduct(product);
             cashier.addProduct(product);
