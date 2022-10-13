@@ -32,7 +32,7 @@ public class GUIController {
     public Product findProduct(String barcode) {
         String response = "";
         try {
-            response = requestHandler.findBarcode(barcode);
+            requestHandler.handlerFindBarcode(barcode);
             if (response == null) {
                 return null; // NOT FOUND
             }

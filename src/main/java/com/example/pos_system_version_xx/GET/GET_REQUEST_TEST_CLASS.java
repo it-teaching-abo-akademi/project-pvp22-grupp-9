@@ -25,7 +25,7 @@ public class GET_REQUEST_TEST_CLASS {
         getRequest(FIND_NAME, name);
     }
 
-    private static void getRequest(String URL, String argument) throws IOException {
+    public static void getRequest(String URL, String argument) throws IOException {
         URL url = new URL(URL + argument);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");

@@ -49,8 +49,28 @@ public class RequestHandler {
         httpRequest("POST", CARDREADER_WAITFORPAYMENT,  "", "amount=" + chargedAmount, true);
     }
 
-    public static String findBarcode(String barcode) throws IOException {
-        return getRequest("GET", FIND_BARCODE, barcode);
+    public static void handlerCardReaderAbortPayment()throws IOException{
+        httpRequest("POST", CARDREADER_ABORT, "", "", true);
+    }
+
+    public static void handlerCardReaderStatus() throws IOException{
+        httpRequest("POST", CARDREADER_STATUS, "", "", true);
+    }
+
+    public static void handlerCardReaderResult() throws IOException{
+        httpRequest("GET", CARDREADER_RESULT, "" , "", true);
+    }
+
+    public static void handlerCardReaderReset() throws IOException{
+        httpRequest("POST", CARDREADER_RESET, "", "", true);
+    }
+
+    public static void handlerFindCustomerNo(String customerNumber) throws IOException{
+        httpRequest("GET", FIND_CUSTOMER_NO, "", "number: " + customerNumber, true);
+    }
+
+    public static void handlerFindBonusCard(String bonusCardNumber) throws IOException{
+        httpRequest("GET", FIND_BONUS_CARD, "", "Card number: " + bonusCardNumber, true);
     }
 
     public static void main(String[] args) throws IOException {
@@ -66,6 +86,9 @@ public class RequestHandler {
         //handlerCardReaderReset();
         //handlerFindCustomerNo("1");
         //handlerFindBonusCard("1234567890", "2999", "6");
+        //handlerCardReaderAbortPayment();
+        //handlerCardReaderResult();
+        //handlerCardReaderReset();
     }
 
     private static String httpRequest(String requestType, String URL, String argument, String data, boolean doOutput) throws IOException {
@@ -93,7 +116,7 @@ public class RequestHandler {
         }
         in.close();
 
-
+        //System.out.println(response);
         return response.toString();
     }
 }
