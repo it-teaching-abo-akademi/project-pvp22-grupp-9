@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class RequestHandler {
 
@@ -27,50 +28,50 @@ public class RequestHandler {
     private static final String FIND_BONUS_CARD = "http://localhost:9004/rest/findByBonusCard";
 
     public static void handlerFindBarcode(String barcode) throws IOException {
-        httpRequest("GET", FIND_BARCODE, barcode, "", false);
+        httpRequest("GET", FIND_BARCODE, barcode, "");
     }
 
     public static void handlerFindKeyword(String keyword) throws IOException {
-        httpRequest("GET", FIND_KEYWORD, keyword, "",false);
+        httpRequest("GET", FIND_KEYWORD, keyword, "");
     }
 
     public static void handlerFindName(String name) throws IOException {
-        httpRequest("GET", FIND_NAME, name, "",false);
+        httpRequest("GET", FIND_NAME, name, "");
     }
     public static void handlerOpenCashbox() throws IOException {
-        httpRequest("POST", OPEN_CASHBOX, "", "", false);
+        httpRequest("POST", OPEN_CASHBOX, "", "");
     }
 
     public static void handlerCashboxStatus() throws IOException {
-        httpRequest("GET", CASHBOX_STATUS, "", "", false);
+        httpRequest("GET", CASHBOX_STATUS, "", "");
     }
 
     public static void handlerCardReaderWaitForPayment(double chargedAmount) throws IOException {
-        httpRequest("POST", CARDREADER_WAITFORPAYMENT,  "", "amount=" + chargedAmount, true);
+        httpRequest("POST", CARDREADER_WAITFORPAYMENT,  "", "amount=" + chargedAmount);
     }
 
-    public static void handlerCardReaderAbortPayment()throws IOException{
-        httpRequest("POST", CARDREADER_ABORT, "", "", true);
+    public static void handlerCardReaderAbortPayment() throws IOException{
+        httpRequest("POST", CARDREADER_ABORT, "", "");
     }
 
     public static void handlerCardReaderStatus() throws IOException{
-        httpRequest("POST", CARDREADER_STATUS, "", "", true);
+        httpRequest("GET", CARDREADER_STATUS, "", "");
     }
 
     public static void handlerCardReaderResult() throws IOException{
-        httpRequest("GET", CARDREADER_RESULT, "" , "", true);
+        httpRequest("GET", CARDREADER_RESULT, "" , "");
     }
 
     public static void handlerCardReaderReset() throws IOException{
-        httpRequest("POST", CARDREADER_RESET, "", "", true);
+        httpRequest("POST", CARDREADER_RESET, "", "");
     }
 
     public static void handlerFindCustomerNo(String customerNumber) throws IOException{
-        httpRequest("GET", FIND_CUSTOMER_NO, "", "number: " + customerNumber, true);
+        httpRequest("GET", FIND_CUSTOMER_NO, customerNumber, "");
     }
 
-    public static void handlerFindBonusCard(String bonusCardNumber) throws IOException{
-        httpRequest("GET", FIND_BONUS_CARD, "", "Card number: " + bonusCardNumber, true);
+    public static void handlerFindBonusCard(String bonusCardNumber, String goodThruYear, String goodThruMonth) throws IOException{
+        httpRequest("GET", FIND_BONUS_CARD, bonusCardNumber + "/" + goodThruYear + "/" + goodThruMonth, "");
     }
 
     public static void main(String[] args) throws IOException {
@@ -91,12 +92,12 @@ public class RequestHandler {
         //handlerCardReaderReset();
     }
 
-    private static String httpRequest(String requestType, String URL, String argument, String data, boolean doOutput) throws IOException {
+    private static String httpRequest(String requestType, String URL, String argument, String data) throws IOException {
         java.net.URL url = new URL(URL + "/" + argument);
         System.out.println(url);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod(requestType);
-        if (doOutput) {
+        if (!Objects.equals(data, "")) {
             connection.setDoOutput(true);
             OutputStream outputStream = connection.getOutputStream();
             outputStream.write(data.getBytes(StandardCharsets.UTF_8));
@@ -116,7 +117,7 @@ public class RequestHandler {
         }
         in.close();
 
-        //System.out.println(response);
+        System.out.println(response);
         return response.toString();
     }
 }
