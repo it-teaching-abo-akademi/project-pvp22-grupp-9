@@ -12,6 +12,7 @@ module com.example.pos_system_version_xx {
     requires com.zaxxer.hikari;
     requires java.transaction;
     requires spring.aop;
+    requires java.xml;
 
     exports com.example.pos_system_version_xx;
     exports com.example.pos_system_version_xx.customer;

@@ -8,9 +8,9 @@ import java.net.URL;
 
 public class RequestHandler {
 
-    private static final String FIND_BARCODE = "http://localhost:9003/rest/findByBarCode/";
-    private static final String FIND_KEYWORD = "http://localhost:9003/rest/findByKeyword/";
-    private static final String FIND_NAME = "http://localhost:9003/rest/findByName/";
+    private static final String FIND_BARCODE = "http://localhost:9003/rest/findByBarCode";
+    private static final String FIND_KEYWORD = "http://localhost:9003/rest/findByKeyword";
+    private static final String FIND_NAME = "http://localhost:9003/rest/findByName";
 
     private static final String OPEN_CASHBOX = "http://localhost:9001/cashbox/open";
     private static final String CASHBOX_STATUS = "http://localhost:9001/cashbox/status";
@@ -36,25 +36,34 @@ public class RequestHandler {
         getRequest("POST", CARDREADER_WAITFORPAYMENT,  " --data \"amount=" + Double.toString(chargedAmount) + "\"");
     }
 
+    public static String findBarcode(String barcode) throws IOException {
+        return getRequest("GET", FIND_BARCODE, barcode);
+    }
+
     public static void main(String[] args) throws IOException {
         handlerCashboxStatus();
     }
 
-    private static void getRequest(String requestType, String URL, String argument) throws IOException {
+    private static String getRequest(String requestType, String URL, String argument) throws IOException {
         java.net.URL url = new URL(URL + "/" + argument);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod(requestType);
         int responseCode = connection.getResponseCode();
         System.out.println("Code : " + responseCode);
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-            System.out.println(response);
+
+        StringBuffer response = new StringBuffer();
+        if (responseCode != HttpURLConnection.HTTP_OK) {
+            return null;
         }
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+        }
+        in.close();
+
+
+        return response.toString();
     }
 }

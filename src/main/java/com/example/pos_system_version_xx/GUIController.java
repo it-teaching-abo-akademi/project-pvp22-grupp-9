@@ -1,8 +1,10 @@
 package com.example.pos_system_version_xx;
 
+import com.example.pos_system_version_xx.tools.XMLParser;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -11,20 +13,39 @@ import com.example.pos_system_version_xx.models.Order;
 import com.example.pos_system_version_xx.models.Product;
 import com.example.pos_system_version_xx.GET.RequestHandler;
 
+import java.util.ArrayList;
+
 
 public class GUIController {
 
     private Order order;
 
     private RequestHandler requestHandler;
+    private XMLParser parser;
 
     public GUIController() {
         order = new Order();
         requestHandler = new RequestHandler();
+        parser = new XMLParser();
     }
 
     public Product findProduct(String barcode) {
-        return new Product("Banana");
+        String response = "";
+        try {
+            response = requestHandler.findBarcode(barcode);
+            if (response == null) {
+                return null; // NOT FOUND
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        ArrayList<Product> products = parser.parseProducts(response);
+        assert products.size() > 0;
+
+
+        return products.get(0);
     }
 
     public void printProducts() {

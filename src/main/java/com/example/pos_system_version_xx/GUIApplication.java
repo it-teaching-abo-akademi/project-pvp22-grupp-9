@@ -28,7 +28,7 @@ public class GUIApplication extends Application {
         public void onProductAddRequested(String barcode) {
             Product product = controller.findProduct(barcode);
             if (product == null) {
-                // error
+                return;     // error
             }
 
             controller.addProduct(product);

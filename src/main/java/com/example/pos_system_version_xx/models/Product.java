@@ -2,14 +2,18 @@ package com.example.pos_system_version_xx.models;
 
 public class Product {
     private String name;
+    private String barcode;
     private double discount;
 
-    private String barcode;
+    public Product() {
 
-    public Product(String name) {
+    }
+
+    public Product(String name, String barcode) {
         this.name = name;
+        this.barcode = barcode;
+
         this.discount = 0;
-        //this.barcode =
     }
 
     public void setDiscount(double discount) {
@@ -21,6 +25,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "name='" + name + '\'' +
+                ", barcode='" + barcode + '\'' +
                 ", discount=" + discount +
                 '}';
     }
