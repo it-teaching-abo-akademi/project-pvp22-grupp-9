@@ -8,9 +8,9 @@ public class PRODUCT_TEST_CLASS {
     private final SimpleDoubleProperty price;
     private final SimpleStringProperty barcode;
 
-    public PRODUCT_TEST_CLASS(String name, Double price, String barcode) {
+    public PRODUCT_TEST_CLASS(String name, String barcode) {
         this.name = new SimpleStringProperty(name);
-        this.price = new SimpleDoubleProperty(price);
+        this.price = new SimpleDoubleProperty(5);
         this.barcode = new SimpleStringProperty(barcode);
     }
 
@@ -36,4 +36,10 @@ public class PRODUCT_TEST_CLASS {
     public void setBarcode(String productBarcode) {
         barcode.set(productBarcode);
     }
+
+    //Converts a PRODUCT_TEST_CLASS to Product
+    public Product toProduct(PRODUCT_TEST_CLASS p) {
+        return new Product(p.getName(), p.getBarcode());
+    }
+
 }

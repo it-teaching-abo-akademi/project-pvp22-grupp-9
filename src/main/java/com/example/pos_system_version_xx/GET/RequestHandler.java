@@ -27,51 +27,51 @@ public class RequestHandler {
     private static final String FIND_CUSTOMER_NO = "http://localhost:9004/rest/findByCustomerNo";
     private static final String FIND_BONUS_CARD = "http://localhost:9004/rest/findByBonusCard";
 
-    public static void handlerFindBarcode(String barcode) throws IOException {
-        httpRequest("GET", FIND_BARCODE, barcode, "");
+    public static String handlerFindBarcode(String barcode) throws IOException {
+        return httpRequest("GET", FIND_BARCODE, barcode, "");
     }
 
-    public static void handlerFindKeyword(String keyword) throws IOException {
-        httpRequest("GET", FIND_KEYWORD, keyword, "");
+    public static String handlerFindKeyword(String keyword) throws IOException {
+        return httpRequest("GET", FIND_KEYWORD, keyword, "");
     }
 
-    public static void handlerFindName(String name) throws IOException {
-        httpRequest("GET", FIND_NAME, name, "");
+    public static String handlerFindName(String name) throws IOException {
+        return httpRequest("GET", FIND_NAME, name, "");
     }
-    public static void handlerOpenCashbox() throws IOException {
-        httpRequest("POST", OPEN_CASHBOX, "", "");
-    }
-
-    public static void handlerCashboxStatus() throws IOException {
-        httpRequest("GET", CASHBOX_STATUS, "", "");
+    public static String handlerOpenCashbox() throws IOException {
+        return httpRequest("POST", OPEN_CASHBOX, "", "");
     }
 
-    public static void handlerCardReaderWaitForPayment(double chargedAmount) throws IOException {
-        httpRequest("POST", CARDREADER_WAITFORPAYMENT,  "", "amount=" + chargedAmount);
+    public static String handlerCashboxStatus() throws IOException {
+        return httpRequest("GET", CASHBOX_STATUS, "", "");
     }
 
-    public static void handlerCardReaderAbortPayment() throws IOException{
-        httpRequest("POST", CARDREADER_ABORT, "", "");
+    public static String handlerCardReaderWaitForPayment(double chargedAmount) throws IOException {
+        return httpRequest("POST", CARDREADER_WAITFORPAYMENT,  "", "amount=" + chargedAmount);
     }
 
-    public static void handlerCardReaderStatus() throws IOException{
-        httpRequest("GET", CARDREADER_STATUS, "", "");
+    public static String handlerCardReaderAbortPayment() throws IOException{
+        return httpRequest("POST", CARDREADER_ABORT, "", "");
     }
 
-    public static void handlerCardReaderResult() throws IOException{
-        httpRequest("GET", CARDREADER_RESULT, "" , "");
+    public static String handlerCardReaderStatus() throws IOException{
+        return httpRequest("GET", CARDREADER_STATUS, "", "");
     }
 
-    public static void handlerCardReaderReset() throws IOException{
-        httpRequest("POST", CARDREADER_RESET, "", "");
+    public static String handlerCardReaderResult() throws IOException{
+        return httpRequest("GET", CARDREADER_RESULT, "" , "");
     }
 
-    public static void handlerFindCustomerNo(String customerNumber) throws IOException{
-        httpRequest("GET", FIND_CUSTOMER_NO, customerNumber, "");
+    public static String handlerCardReaderReset() throws IOException{
+        return httpRequest("POST", CARDREADER_RESET, "", "");
     }
 
-    public static void handlerFindBonusCard(String bonusCardNumber, String goodThruYear, String goodThruMonth) throws IOException{
-        httpRequest("GET", FIND_BONUS_CARD, bonusCardNumber + "/" + goodThruYear + "/" + goodThruMonth, "");
+    public static String handlerFindCustomerNo(String customerNumber) throws IOException{
+        return httpRequest("GET", FIND_CUSTOMER_NO, customerNumber, "");
+    }
+
+    public static String handlerFindBonusCard(String bonusCardNumber, String goodThruYear, String goodThruMonth) throws IOException{
+        return httpRequest("GET", FIND_BONUS_CARD, bonusCardNumber + "/" + goodThruYear + "/" + goodThruMonth, "");
     }
 
     public static void main(String[] args) throws IOException {

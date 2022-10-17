@@ -30,7 +30,7 @@
          <font>
             <Font size="16.0" />
          </font></Label>
-      <Label fx:id="totalLabel" layoutX="428.0" layoutY="519.0" prefHeight="17.0" prefWidth="10.0" text="--" />
+      <Label layoutX="428.0" layoutY="519.0" prefHeight="17.0" prefWidth="40.0" text="0.0" fx:id="subtotalLabel"/>
       <TableView fx:id="productTable" layoutX="282.0" layoutY="125.0" prefHeight="310.0" prefWidth="301.0">
         <columns>
           <TableColumn fx:id="productTableName" prefWidth="112.0" text="Name" />
@@ -42,11 +42,11 @@
       <Button layoutX="509.0" layoutY="43.0" mnemonicParsing="false" onAction="#requestShelfSale" prefHeight="38.0" prefWidth="63.0" text="Shelf" />
       <TextField fx:id="givenCash" layoutX="296.0" layoutY="470.0" prefHeight="38.0" prefWidth="174.0" />
       <Button layoutX="484.0" layoutY="467.0" mnemonicParsing="false" onAction="#startPaymentMode" prefHeight="45.0" prefWidth="63.0" text="Start Payment" wrapText="true" />
-      <Label fx:id="subtotalLabel" layoutX="299.0" layoutY="508.0" prefHeight="38.0" prefWidth="86.0" text="Change due">
+      <Label layoutX="299.0" layoutY="508.0" prefHeight="38.0" prefWidth="86.0" text="Change due">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <Label layoutX="428.0" layoutY="551.0" prefHeight="17.0" prefWidth="10.0" text="--" />
+      <Label layoutX="428.0" layoutY="551.0" prefHeight="17.0" prefWidth="40.0" text="0.0" fx:id="totalLabel"/>
       <Label layoutX="87.0" layoutY="100.0" text="Shopping Cart" />
       <Label layoutX="390.0" layoutY="100.0" text="Product Catalog" />
       <Button layoutX="205.0" layoutY="467.0" mnemonicParsing="false" onAction="#requestAddDiscount" prefHeight="45.0" prefWidth="63.0" text="Discount" />

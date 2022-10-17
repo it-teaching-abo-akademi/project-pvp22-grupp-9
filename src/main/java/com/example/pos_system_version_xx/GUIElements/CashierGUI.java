@@ -3,6 +3,7 @@ package com.example.pos_system_version_xx.GUIElements;
 import com.example.pos_system_version_xx.GUIApplication;
 import com.example.pos_system_version_xx.GUIController;
 import com.example.pos_system_version_xx.events.ProductAddRequested;
+import com.example.pos_system_version_xx.events.ProductRemoveRequested;
 import com.example.pos_system_version_xx.events.ProductScanRequested;
 import com.example.pos_system_version_xx.models.Barcode;
 import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
@@ -62,9 +63,9 @@ public class CashierGUI extends Window {
         });
         productTableBarcode.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, String>("barcode"));
         productTable.setItems(FXCollections.observableArrayList(
-                new PRODUCT_TEST_CLASS("Banana", 1.00, ""),
-                new PRODUCT_TEST_CLASS("Apple", 1.00,""),
-                new PRODUCT_TEST_CLASS("Hannes", 1.00,"")
+                new PRODUCT_TEST_CLASS("Banana", ""),
+                new PRODUCT_TEST_CLASS("Apple", ""),
+                new PRODUCT_TEST_CLASS("Hannes", "")
         ));
         cartTable.setEditable(true);
         cartTableName.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, String>("name"));
@@ -82,11 +83,11 @@ public class CashierGUI extends Window {
     public void requestScanProduct() {
         fireEvent(new ProductScanRequested(insertedBarcode.getText()));
     }
+
     @FXML
     public void requestRemoveProduct() {
         PRODUCT_TEST_CLASS product = cartTable.getSelectionModel().getSelectedItem();
-        cartTable.getItems().remove(product);
-        //fireEvent(new ProductRemoveRequested(product));
+        fireEvent(new ProductRemoveRequested(product.toProduct(product)));
     }
 
     //@FXML >> old parameters: (Product product, double discount)
@@ -109,19 +110,24 @@ public class CashierGUI extends Window {
     // These are called to alter the UI elements within this GUI
 
     public void addProduct(Product product) {
-        productTable.setEditable(true);
-        productTableName.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, String>("name"));
-        productTablePrice.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, Double>("price"));
-        productTableBarcode.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, String>("barcode"));
-        productTable.setItems(FXCollections.observableArrayList(
-                new PRODUCT_TEST_CLASS("Banana", 0.45, ""),
-                new PRODUCT_TEST_CLASS("apple", 0.65,""),
-                new PRODUCT_TEST_CLASS("car", 25000.50,"")
+        cartTable.setItems(FXCollections.observableArrayList(
+                new PRODUCT_TEST_CLASS(product.getName(), product.getBarcode())
         ));
+
+        double totalPrice = Double.parseDouble(totalLabel.getText());
+        double addedPrice = product.getPrice();;
+        totalPrice = totalPrice+addedPrice;
+        totalLabel.setText(String.valueOf(totalPrice));
     }
 
     public void removeProduct(Product product) {
+        PRODUCT_TEST_CLASS PTC = cartTable.getSelectionModel().getSelectedItem();
+        cartTable.getItems().remove(PTC);
 
+        double totalPrice = Double.parseDouble(totalLabel.getText());
+        double removedPrice = product.getPrice();;
+        totalPrice = totalPrice-removedPrice;
+        totalLabel.setText(String.valueOf(totalPrice));
     }
 
     public void updateProduct(Product product) {

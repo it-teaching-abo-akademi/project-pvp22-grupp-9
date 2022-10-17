@@ -98,7 +98,7 @@ public class GUIApplication extends Application {
 
                 controller.addProduct(product);
                 cashier.addProduct(product);
-                customer.addProduct(product);
+                //customer.addProduct(product);
             }
 
             @Override
@@ -113,8 +113,15 @@ public class GUIApplication extends Application {
             }
 
             @Override
-            public void onProductRemoveRequested(Product param0) {
+            public void onProductRemoveRequested(Product product) {
+                if (product == null) {
+                    System.out.println("Product not found");
+                    return;     // error
+                }
 
+                //controller.removeProduct(product);
+                cashier.removeProduct(product);
+                //customer.removeProduct(product);
             }
 
             @Override
@@ -133,18 +140,18 @@ public class GUIApplication extends Application {
             }
         });
 
-        Stage cashierStage = new Stage();
-        fxmlLoader = new FXMLLoader(GUIApplication.class.getResource("customer-view.fxml"));
+        Stage customerStage = new Stage();
+        FXMLLoader fxmlLoader2 = new FXMLLoader(GUIApplication.class.getResource("customer-view.fxml"));
         try {
-            Scene scene = new Scene(fxmlLoader.load(), 600, 600);
-            cashierStage.setScene(scene);
+            Scene scene2 = new Scene(fxmlLoader2.load(), 600, 600);
+            customerStage.setScene(scene2);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        stage.setTitle("Customer");
-        stage.show();
+        customerStage.setTitle("Customer");
+        customerStage.show();
 
-        customer = fxmlLoader.getController();
+        customer = fxmlLoader2.getController();
     }
 
     public static void main(String[] args)
