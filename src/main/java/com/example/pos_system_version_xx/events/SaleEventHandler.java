@@ -6,11 +6,15 @@ import javafx.event.EventHandler;
 
 public abstract class SaleEventHandler implements EventHandler<CustomEvent> {
 
-    public abstract void onProductAddRequested(String param0);
+    public abstract void onProductScanRequested(String param0);
+
+    public abstract void onProductAddRequested(Product param0);
 
     public abstract void onProductRemoveRequested(Product param0);
 
     public abstract void onProductDiscountRequested(Product param0, double param1);
+
+    public abstract void onGetAllProductsRequested();
 
     public abstract void onStartPaymentRequested();
 

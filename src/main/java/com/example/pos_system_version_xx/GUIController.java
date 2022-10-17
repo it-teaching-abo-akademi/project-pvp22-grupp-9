@@ -64,6 +64,10 @@ public class GUIController {
         product.setDiscount(amount);
     }
 
+    public ArrayList<Product> getAllProducts() {
+        return new ArrayList<Product>();
+    }
+
     //public void openCashbox() { requestHandler.handlerOpenCashbox();
 
 }

@@ -6,59 +6,23 @@ import com.example.pos_system_version_xx.events.CustomEvent;
 import com.example.pos_system_version_xx.events.SaleEventHandler;
 import com.example.pos_system_version_xx.models.Product;
 import javafx.application.Application;
+import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 //@SpringBootApplication //remove comment when springboot works
 public class GUIApplication extends Application {
 
     public GUIApplication() {
-        customer = new CustomerGUI();
-        cashier = new CashierGUI();
         controller = new GUIController();
-        cashier.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new SaleEventHandler() {
+    };
 
-        @Override
-        public void onProductAddRequested(String barcode) {
-            /*Product product = controller.findProduct(barcode);
-            if (product == null) {
-                return;     // error
-            }*/
-            Product product = new Product();
 
-            controller.addProduct(product);
-            cashier.addProduct(product);
-            customer.addProduct(product);
-        }
-
-        @Override
-        public void onProductRemoveRequested(Product product) {
-            controller.removeProduct(product);
-            cashier.removeProduct(product);
-            customer.removeProduct(product);
-        }
-
-        @Override
-        public void onProductDiscountRequested(Product product, double amount) {
-            controller.addDiscountToProduct(product, amount);
-            cashier.updateProduct(product);
-            customer.updateProduct(product);
-        }
-
-        @Override
-        public void onStartPaymentRequested() {
-            customer.startPaymentMode();
-            cashier.startPaymentMode();
-            //controller.waitForPayment();
-        }
-
-        @Override
-        public void onOpenCashboxRequested() {
-            //controller.openCashbox();
-        }
-    });
 
     /* IF WE WANT: THE CUSTOMER CAN DO STUFF
         customer.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new SaleEventHandler() {
@@ -102,7 +66,7 @@ public class GUIApplication extends Application {
         }
 
     }); */
-}
+
 
 
     private CustomerGUI customer;
@@ -112,23 +76,81 @@ public class GUIApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GUIApplication.class.getResource("cashier-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 600);
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 600, 600);
+            stage.setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         stage.setTitle("Cashier");
-        stage.setScene(scene);
         stage.show();
 
-        Stage secondStage = new Stage();
-        FXMLLoader fxmlLoader2 = new FXMLLoader(GUIApplication.class.getResource("customer-view.fxml"));
-        Scene scene2 = new Scene(fxmlLoader2.load(), 600, 600);
-        secondStage.setTitle("Customer");
-        secondStage.setScene(scene2);
-        secondStage.show();
+        cashier = fxmlLoader.getController();
 
-        //SpringApplication.run(SpringBootStarter.class, args);
+        cashier.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new SaleEventHandler() {
+            @Override
+            public void onProductScanRequested(String barcode) {
+                Product product = controller.findProduct(barcode);
+                if (product == null) {
+                    System.out.println("Product not found");
+                    return;     // error
+                }
+
+                controller.addProduct(product);
+                cashier.addProduct(product);
+                customer.addProduct(product);
+            }
+
+            @Override
+            public void onGetAllProductsRequested() {
+                ArrayList<Product> products = controller.getAllProducts();
+                cashier.addToProductCatalog(products);
+            }
+
+            @Override
+            public void onProductAddRequested(Product product) {
+
+            }
+
+            @Override
+            public void onProductRemoveRequested(Product param0) {
+
+            }
+
+            @Override
+            public void onProductDiscountRequested(Product param0, double param1) {
+
+            }
+
+            @Override
+            public void onStartPaymentRequested() {
+
+            }
+
+            @Override
+            public void onOpenCashboxRequested() {
+
+            }
+        });
+
+        Stage cashierStage = new Stage();
+        fxmlLoader = new FXMLLoader(GUIApplication.class.getResource("customer-view.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 600, 600);
+            cashierStage.setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        stage.setTitle("Customer");
+        stage.show();
+
+        customer = fxmlLoader.getController();
     }
 
     public static void main(String[] args)
     {//SpringApplication.run(SpringBootStarter.class, args);
             launch();
     }
+
+
 }

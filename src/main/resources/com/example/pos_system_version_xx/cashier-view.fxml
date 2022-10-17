@@ -54,6 +54,6 @@
       <Button layoutX="433.0" layoutY="43.0" mnemonicParsing="false" onAction="#requestRemoveProduct" prefHeight="38.0" prefWidth="63.0" text="Remove" />
       <TextField fx:id="givenDiscount" layoutX="16.0" layoutY="470.0" prefHeight="38.0" prefWidth="174.0" />
       <Label layoutX="16.0" layoutY="446.0" text="Discount Amount" />
-      <Button layoutX="354.0" layoutY="43.0" mnemonicParsing="false" onAction="#requestAddProduct" prefHeight="38.0" prefWidth="63.0" text="Add" />
+      <Button fx:id="addButton" layoutX="354.0" layoutY="43.0" mnemonicParsing="false" onAction="#requestAddProduct" prefHeight="38.0" prefWidth="63.0" text="Add" />
    </children>
 </AnchorPane>

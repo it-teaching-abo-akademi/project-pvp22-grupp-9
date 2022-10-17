@@ -1,6 +1,9 @@
 package com.example.pos_system_version_xx.GUIElements;
 
+import com.example.pos_system_version_xx.GUIApplication;
+import com.example.pos_system_version_xx.GUIController;
 import com.example.pos_system_version_xx.models.Product;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
@@ -10,11 +13,15 @@ import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import java.io.IOException;
+
 public class CustomerGUI extends Window {
 
     @FXML private Label customerLabel;
 
     @FXML private TableView customerTable;
+
+    public CustomerGUI() {}
 
     public void addProduct(Product product) {
         System.out.println(this + ": adding product " + product);
@@ -33,17 +40,7 @@ public class CustomerGUI extends Window {
     }
 
 
-
-
-
     public void start() {
-        Stage stage = new Stage();
-        stage.setTitle("Customer");
 
-        Pane pane = new StackPane();
-        Scene scene = new Scene(pane, 250, 250);
-
-        stage.setScene(scene);
-        stage.show();
     }
 }

@@ -1,12 +1,17 @@
 package com.example.pos_system_version_xx.GUIElements;
 
+import com.example.pos_system_version_xx.GUIApplication;
+import com.example.pos_system_version_xx.GUIController;
 import com.example.pos_system_version_xx.events.ProductAddRequested;
+import com.example.pos_system_version_xx.events.ProductScanRequested;
+import com.example.pos_system_version_xx.models.Barcode;
 import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
 import com.example.pos_system_version_xx.models.Product;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,6 +22,8 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import javafx.util.converter.DoubleStringConverter;
+
+import java.util.ArrayList;
 
 public class CashierGUI extends Window {
 
@@ -36,6 +43,9 @@ public class CashierGUI extends Window {
     @FXML private TableColumn cartTableName;
     @FXML private TableColumn cartTablePrice;
 
+    public CashierGUI() {
+
+    }
 
     @FXML
     public void onHelloButtonClick() {
@@ -64,15 +74,13 @@ public class CashierGUI extends Window {
     // These are called when the GUI requests something to be done
     @FXML
     public void requestAddProduct() {
-    PRODUCT_TEST_CLASS product = productTable.getSelectionModel().getSelectedItem();
-        cartTable.getItems().add(product);
-
-        //fireEvent(new ProductAddRequested(insertedBarcode.getText()));
+        // TODO: FIND PRODUCT IN QUESTION BASED ON WHICH PRODUCT IN THE CATALOG IS SELECTED
+        //fireEvent(new ProductAddRequested();
     }
 
     @FXML
     public void requestScanProduct() {
-        //fireEvent(new ProductAddRequested(insertedBarcode.getText()));
+        fireEvent(new ProductScanRequested(insertedBarcode.getText()));
     }
     @FXML
     public void requestRemoveProduct() {
@@ -127,23 +135,10 @@ public class CashierGUI extends Window {
     }
 
     public void start() {
-        Stage stage = new Stage();
-        stage.setTitle("Cashier");
 
-        Pane pane = new StackPane();
+    }
 
-        Button addButton = new Button("Add product");
-        addButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                //requestAddProduct(new Barcode());
-            }
-        });
-        pane.getChildren().add(addButton);
 
-        Scene scene = new Scene(pane, 250, 250);
-        stage.setScene(scene);
-
-        stage.show();
+    public void addToProductCatalog(ArrayList<Product> products) {
     }
 }
