@@ -1,15 +1,14 @@
 package com.example.pos_system_version_xx;
 
+import com.example.pos_system_version_xx.GET.SearchParamType;
 import com.example.pos_system_version_xx.GUIElements.CashierGUI;
 import com.example.pos_system_version_xx.GUIElements.CustomerGUI;
 import com.example.pos_system_version_xx.events.CustomEvent;
 import com.example.pos_system_version_xx.events.SaleEventHandler;
 import com.example.pos_system_version_xx.models.Product;
 import javafx.application.Application;
-import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -102,7 +101,7 @@ public class GUIApplication extends Application {
             }
 
             @Override
-            public void onGetAllProductsRequested() {
+            public void onGetProductsRequested(String keyword, SearchParamType type) {
                 ArrayList<Product> products = controller.getAllProducts();
                 cashier.addToProductCatalog(products);
             }

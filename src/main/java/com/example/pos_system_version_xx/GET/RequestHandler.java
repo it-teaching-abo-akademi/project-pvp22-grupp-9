@@ -27,6 +27,19 @@ public class RequestHandler {
     private static final String FIND_CUSTOMER_NO = "http://localhost:9004/rest/findByCustomerNo";
     private static final String FIND_BONUS_CARD = "http://localhost:9004/rest/findByBonusCard";
 
+    public static String find(String param, SearchParamType type) throws IOException {
+        if (type == SearchParamType.BARCODE) {
+            return httpRequest("GET", FIND_BARCODE, param, "");
+        } else if (type == SearchParamType.KEYWORD) {
+            return httpRequest("GET", FIND_KEYWORD, param, "");
+        } else if (type == SearchParamType.NAME) {
+            return httpRequest("GET", FIND_NAME, param, "");
+        } else {
+            // ERROR
+            return "";
+        }
+    }
+
     public static String handlerFindBarcode(String barcode) throws IOException {
         return httpRequest("GET", FIND_BARCODE, barcode, "");
     }
