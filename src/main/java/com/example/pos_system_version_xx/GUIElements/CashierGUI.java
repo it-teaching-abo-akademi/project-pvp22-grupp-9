@@ -29,12 +29,12 @@ import java.util.ArrayList;
 public class CashierGUI extends Window {
 
     //GUI elements must be accessed independently, and cannot be passed as arguments to functions
-    @FXML private Label welcomeText; //?
     @FXML private Label totalLabel;
-    @FXML private Label subtotalLabel;
+    @FXML private Label changeLabel;
     @FXML private TextField givenCash; //convert this String to double
-    @FXML private TextField insertedBarcode; //you get whatever its contents are!!
     @FXML private TextField givenDiscount; //convert to int
+    @FXML private TextField givenKeyword;
+    @FXML private TextField insertedBarcode; //you get whatever its contents are!!
     @FXML private TableView<PRODUCT_TEST_CLASS> cartTable;
     @FXML private TableView<PRODUCT_TEST_CLASS> productTable;
 
@@ -92,11 +92,9 @@ public class CashierGUI extends Window {
 
     //@FXML >> old parameters: (Product product, double discount)
     public void requestAddDiscount() {
-        //get these from tableview and a textview
-        //Product product;
-        double discount;
-        //  { CODE TO GET SELECTED PRODUCT }
-        discount = Integer.parseInt( givenDiscount.getText() );
+        PRODUCT_TEST_CLASS product = productTable.getSelectionModel().getSelectedItem();
+        product.setPrice(product.getPrice()*Double.parseDouble(givenDiscount.getText())/100);
+        productTable.refresh();
         //fireEvent(new ProductDiscountRequested(product, discount));
     }
 
@@ -139,10 +137,11 @@ public class CashierGUI extends Window {
     public void startPaymentMode() {
 
     }
-
-    public void start() {
+    @FXML
+    public void addDiscountToProduct() {
 
     }
+
 
 
     public void addToProductCatalog(ArrayList<Product> products) {

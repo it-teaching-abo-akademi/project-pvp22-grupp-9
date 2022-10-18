@@ -125,7 +125,10 @@ public class GUIApplication extends Application {
 
             @Override
             public void onProductDiscountRequested(Product param0, double param1) {
-
+                if (param0 == null) {
+                    System.out.println("Product not found");
+                    return;     // error
+                }
             }
 
             @Override
