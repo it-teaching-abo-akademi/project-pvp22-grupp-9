@@ -19,7 +19,7 @@ public class GUIApplication extends Application {
 
     public GUIApplication() {
         controller = new GUIController();
-    };
+    }
 
 
 
@@ -97,7 +97,7 @@ public class GUIApplication extends Application {
 
                 controller.addProduct(product);
                 cashier.addProduct(product);
-                //customer.addProduct(product);
+                customer.addProduct(product);
             }
 
             @Override
@@ -151,6 +151,8 @@ public class GUIApplication extends Application {
         customerStage.show();
 
         customer = fxmlLoader2.getController();
+        customer.setupCustomerTable();
+        cashier.onHelloButtonClick();
     }
 
     public static void main(String[] args)

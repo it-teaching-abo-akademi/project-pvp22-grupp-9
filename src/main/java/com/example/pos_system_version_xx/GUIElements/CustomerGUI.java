@@ -2,10 +2,14 @@ package com.example.pos_system_version_xx.GUIElements;
 
 import com.example.pos_system_version_xx.GUIApplication;
 import com.example.pos_system_version_xx.GUIController;
+import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
 import com.example.pos_system_version_xx.models.Product;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.Label;
@@ -19,12 +23,23 @@ public class CustomerGUI extends Window {
 
     @FXML private Label customerLabel;
 
-    @FXML private TableView customerTable;
+    @FXML private TableView<PRODUCT_TEST_CLASS> customerTable;
+
+    @FXML private TableColumn customerTableName;
+    @FXML private TableColumn customerTablePrice;
 
     public CustomerGUI() {}
 
+    public void setupCustomerTable() {
+        customerTable.setEditable(true);
+        customerTableName.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, String>("name"));
+        customerTablePrice.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, Double>("price"));
+    }
+
     public void addProduct(Product product) {
-        System.out.println(this + ": adding product " + product);
+        customerTable.setItems(FXCollections.observableArrayList(
+                new PRODUCT_TEST_CLASS(product.getName(), product.getBarcode())
+        ));
     }
 
     public void removeProduct(Product product) {
