@@ -2,10 +2,7 @@ package com.example.pos_system_version_xx.GUIElements;
 
 import com.example.pos_system_version_xx.GUIApplication;
 import com.example.pos_system_version_xx.GUIController;
-import com.example.pos_system_version_xx.events.OpenCashboxRequested;
-import com.example.pos_system_version_xx.events.ProductAddRequested;
-import com.example.pos_system_version_xx.events.ProductRemoveRequested;
-import com.example.pos_system_version_xx.events.ProductScanRequested;
+import com.example.pos_system_version_xx.events.*;
 import com.example.pos_system_version_xx.models.Barcode;
 import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
 import com.example.pos_system_version_xx.models.Product;
@@ -122,6 +119,11 @@ public class CashierGUI extends Window {
     @FXML
     public void requestOpenCashbox() {}
 
+    @FXML
+    public void requestFindKeyword() {
+        fireEvent(new FindKeywordRequested(givenKeyword.getText()));
+    }
+
 
     // These are called to alter the UI elements within this GUI
 
@@ -130,7 +132,7 @@ public class CashierGUI extends Window {
         cartTable.getItems().add(PTC);
 
         /*double totalPrice = Double.parseDouble(totalLabel.getText());
-        double addedPrice = product.getPrice();;
+        double addedPrice = product.getPrice();
         totalPrice = totalPrice+addedPrice;
         totalLabel.setText(String.valueOf(totalPrice));*/
     }

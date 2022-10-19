@@ -50,7 +50,7 @@
       <Label layoutX="346.0" layoutY="390.0" text="Discount Amount" />
       <Button fx:id="addButton" layoutX="354.0" layoutY="43.0" mnemonicParsing="false" onAction="#requestAddProduct" prefHeight="38.0" prefWidth="63.0" text="Add" />
       <TextField fx:id="givenKeyword" layoutX="19.0" layoutY="407.0" prefHeight="38.0" prefWidth="180.0" />
-      <Button layoutX="205.0" layoutY="404.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="63.0" text="Search" />
+      <Button layoutX="205.0" layoutY="404.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="63.0" text="Search" onAction="#requestFindKeyword"/>
       <Label layoutX="19.0" layoutY="390.0" text="Search By Keyword" />
    </children>
 </AnchorPane>

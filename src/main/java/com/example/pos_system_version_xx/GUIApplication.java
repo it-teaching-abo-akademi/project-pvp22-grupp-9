@@ -152,6 +152,14 @@ public class GUIApplication extends Application {
             public void onOpenCashboxRequested() {
 
             }
+
+            @Override
+            public void onFindKeywordRequested(String param) {
+                if (param == "") { param = "*"; }
+                ArrayList<Product> ps = controller.findProducts(param, SearchParamType.NAME);
+                ps.addAll(controller.findProducts(param, SearchParamType.KEYWORD));
+                cashier.addToProductCatalog(ps);
+            }
         });
 
         Stage customerStage = new Stage();

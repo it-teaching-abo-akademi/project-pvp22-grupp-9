@@ -21,6 +21,8 @@ public abstract class SaleEventHandler implements EventHandler<CustomEvent> {
 
     public abstract void onOpenCashboxRequested();
 
+    public abstract void onFindKeywordRequested(String param);
+
     @Override
     public void handle(CustomEvent event) {
         event.invokeHandler(this);
