@@ -112,17 +112,23 @@ public class GUIApplication extends Application {
             }
 
             @Override
-            public void onProductAddRequested(Product product) {
-
+            public void onProductAddRequested(PRODUCT_TEST_CLASS PTC) {
+                if (PTC == null) {
+                    System.out.println("No product selected");
+                    return; // error
+                }
+                controller.addProduct(PTC.toProduct(PTC));
+                cashier.addProduct(PTC);
+                customer.addProduct(PTC);
             }
 
             @Override
             public void onProductRemoveRequested(PRODUCT_TEST_CLASS PTC) {
-                Product product = PTC.toProduct(PTC);
-                if (product == null) {
+                if (PTC == null) {
                     System.out.println("Product not found");
                     return;     // error
                 }
+                Product product = PTC.toProduct(PTC);
 
                 //controller.removeProduct(product);
                 cashier.removeProduct(PTC);
@@ -161,7 +167,8 @@ public class GUIApplication extends Application {
 
         customer = fxmlLoader2.getController();
         customer.setupCustomerTable();
-        cashier.onHelloButtonClick();
+        cashier.setupCashierTables();
+        cashier.addToProductCatalog(controller.getAllProducts());
     }
 
     public static void main(String[] args)
