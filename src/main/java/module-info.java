@@ -13,6 +13,8 @@ module com.example.pos_system_version_xx {
     requires java.transaction;
     requires spring.aop;
     requires java.xml;
+    requires java.desktop;
+    requires javafx.swing;
 
     exports com.example.pos_system_version_xx;
     exports com.example.pos_system_version_xx.customer;

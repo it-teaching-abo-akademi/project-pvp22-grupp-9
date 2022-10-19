@@ -9,7 +9,7 @@ public abstract class SaleEventHandler implements EventHandler<CustomEvent> {
 
     public abstract void onProductScanRequested(String param0);
 
-    public abstract void onProductAddRequested(Product param0);
+    public abstract void onProductAddRequested(PRODUCT_TEST_CLASS param0);
 
     public abstract void onProductRemoveRequested(PRODUCT_TEST_CLASS param0);
 

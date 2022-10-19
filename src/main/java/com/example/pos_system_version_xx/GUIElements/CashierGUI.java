@@ -10,21 +10,28 @@ import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
 import com.example.pos_system_version_xx.models.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import javafx.util.converter.DoubleStringConverter;
+import javax.imageio.ImageIO;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CashierGUI extends Window {
@@ -51,6 +58,17 @@ public class CashierGUI extends Window {
 
     @FXML
     public void onHelloButtonClick() {
+        WritableImage image = productTable.getScene().snapshot(null);
+
+        File file = new File("receipt.png");
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+        } catch (IOException e) {
+            // TODO: handle exception here
+        }
+    }
+
+    public void setupCashierTables() {
         productTable.setEditable(true);
         productTableName.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, String>("name"));
         productTablePrice.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, Double>("price"));
@@ -76,8 +94,8 @@ public class CashierGUI extends Window {
     // These are called when the GUI requests something to be done
     @FXML
     public void requestAddProduct() {
-        // TODO: FIND PRODUCT IN QUESTION BASED ON WHICH PRODUCT IN THE CATALOG IS SELECTED
-        //fireEvent(new ProductAddRequested();
+        PRODUCT_TEST_CLASS PTC = productTable.getSelectionModel().getSelectedItem();
+        fireEvent(new ProductAddRequested(PTC));
     }
 
     @FXML
@@ -145,5 +163,10 @@ public class CashierGUI extends Window {
 
 
     public void addToProductCatalog(ArrayList<Product> products) {
+        ArrayList<PRODUCT_TEST_CLASS> PTC = new ArrayList<PRODUCT_TEST_CLASS>();
+        for (Product p : products) {
+            PTC.add(new PRODUCT_TEST_CLASS(p.getName(), p.getBarcode()));
+        }
+        productTable.setItems(FXCollections.observableArrayList(PTC));
     }
 }
