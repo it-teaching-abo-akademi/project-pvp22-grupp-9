@@ -3,6 +3,8 @@ package com.example.pos_system_version_xx;
 import com.example.pos_system_version_xx.GET.SearchParamType;
 import com.example.pos_system_version_xx.GUIElements.CashierGUI;
 import com.example.pos_system_version_xx.GUIElements.CustomerGUI;
+import com.example.pos_system_version_xx.GUIElements.MarketingCoordinatorGUI;
+import com.example.pos_system_version_xx.GUIElements.SalesmanGUI;
 import com.example.pos_system_version_xx.events.CustomEvent;
 import com.example.pos_system_version_xx.events.SaleEventHandler;
 import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
@@ -73,6 +75,10 @@ public class GUIApplication extends Application {
 
     private CustomerGUI customer;
     private CashierGUI cashier;
+
+    private SalesmanGUI salesman;
+
+    private MarketingCoordinatorGUI marketingCoordinator;
     private GUIController controller;
 
     @Override
@@ -188,6 +194,8 @@ public class GUIApplication extends Application {
         marketingCoordinatorStage.show();
 
         customer = fxmlLoader2.getController();
+        salesman = fxmlLoader3.getController();
+        marketingCoordinator = fxmlLoader4.getController();
         customer.setupCustomerTable();
         cashier.setupCashierTables();
         cashier.addToProductCatalog(controller.getAllProducts());
