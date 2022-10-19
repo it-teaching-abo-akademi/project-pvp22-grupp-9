@@ -165,6 +165,28 @@ public class GUIApplication extends Application {
         customerStage.setTitle("Customer");
         customerStage.show();
 
+        Stage salesmanStage = new Stage();
+        FXMLLoader fxmlLoader3 = new FXMLLoader(GUIApplication.class.getResource("salesman-view.fxml"));
+        try {
+            Scene scene3 = new Scene(fxmlLoader3.load(), 600, 600);
+            salesmanStage.setScene(scene3);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        salesmanStage.setTitle("Salesman");
+        salesmanStage.show();
+
+        Stage marketingCoordinatorStage = new Stage();
+        FXMLLoader fxmlLoader4 = new FXMLLoader(GUIApplication.class.getResource("marketingcoordinator-view.fxml"));
+        try {
+            Scene scene4 = new Scene(fxmlLoader4.load(), 600, 600);
+            marketingCoordinatorStage.setScene(scene4);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        marketingCoordinatorStage.setTitle("Marketing Coordinator");
+        marketingCoordinatorStage.show();
+
         customer = fxmlLoader2.getController();
         customer.setupCustomerTable();
         cashier.setupCashierTables();
