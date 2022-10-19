@@ -5,6 +5,7 @@ import com.example.pos_system_version_xx.GUIController;
 import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
 import com.example.pos_system_version_xx.models.Product;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -36,14 +37,12 @@ public class CustomerGUI extends Window {
         customerTablePrice.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, Double>("price"));
     }
 
-    public void addProduct(Product product) {
-        customerTable.setItems(FXCollections.observableArrayList(
-                new PRODUCT_TEST_CLASS(product.getName(), product.getBarcode())
-        ));
+    public void addProduct(PRODUCT_TEST_CLASS PTC) {
+        customerTable.getItems().add(PTC);
     }
 
-    public void removeProduct(Product product) {
-        System.out.println(this + ": removing product " + product);
+    public void removeProduct(PRODUCT_TEST_CLASS PTC) {
+        customerTable.getItems().remove(PTC);
     }
 
     public void updateProduct(Product product) {

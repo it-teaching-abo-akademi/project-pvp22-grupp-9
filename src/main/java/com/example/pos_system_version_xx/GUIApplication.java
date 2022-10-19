@@ -5,8 +5,11 @@ import com.example.pos_system_version_xx.GUIElements.CashierGUI;
 import com.example.pos_system_version_xx.GUIElements.CustomerGUI;
 import com.example.pos_system_version_xx.events.CustomEvent;
 import com.example.pos_system_version_xx.events.SaleEventHandler;
+import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
 import com.example.pos_system_version_xx.models.Product;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -95,9 +98,11 @@ public class GUIApplication extends Application {
                     return;     // error
                 }
 
+                PRODUCT_TEST_CLASS PTC = new PRODUCT_TEST_CLASS(product.getName(), product.getBarcode());
+
                 controller.addProduct(product);
-                cashier.addProduct(product);
-                customer.addProduct(product);
+                cashier.addProduct(PTC);
+                customer.addProduct(PTC);
             }
 
             @Override
@@ -112,15 +117,16 @@ public class GUIApplication extends Application {
             }
 
             @Override
-            public void onProductRemoveRequested(Product product) {
+            public void onProductRemoveRequested(PRODUCT_TEST_CLASS PTC) {
+                Product product = PTC.toProduct(PTC);
                 if (product == null) {
                     System.out.println("Product not found");
                     return;     // error
                 }
 
                 //controller.removeProduct(product);
-                cashier.removeProduct(product);
-                //customer.removeProduct(product);
+                cashier.removeProduct(PTC);
+                customer.removeProduct(PTC);
             }
 
             @Override
