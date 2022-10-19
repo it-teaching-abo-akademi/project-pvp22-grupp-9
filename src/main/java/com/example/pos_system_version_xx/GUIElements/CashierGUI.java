@@ -2,6 +2,7 @@ package com.example.pos_system_version_xx.GUIElements;
 
 import com.example.pos_system_version_xx.GUIApplication;
 import com.example.pos_system_version_xx.GUIController;
+import com.example.pos_system_version_xx.events.OpenCashboxRequested;
 import com.example.pos_system_version_xx.events.ProductAddRequested;
 import com.example.pos_system_version_xx.events.ProductRemoveRequested;
 import com.example.pos_system_version_xx.events.ProductScanRequested;
@@ -93,9 +94,7 @@ public class CashierGUI extends Window {
 
     //@FXML >> old parameters: (Product product, double discount)
     public void requestAddDiscount() {
-        PRODUCT_TEST_CLASS product = productTable.getSelectionModel().getSelectedItem();
-        product.setPrice(product.getPrice()*Double.parseDouble(givenDiscount.getText())/100);
-        productTable.refresh();
+
         //fireEvent(new ProductDiscountRequested(product, discount));
     }
 
@@ -134,11 +133,32 @@ public class CashierGUI extends Window {
     @FXML
     //connected to the "Start payment" button
     public void startPaymentMode() {
-
+        if (Double.parseDouble(givenCash.getText()) > Double.parseDouble(totalLabel.getText())) {
+            changeLabel.setText(String.valueOf(Double.parseDouble(givenCash.getText()) - Double.parseDouble(totalLabel.getText())));
+            totalLabel.setText("0.00");
+            //cashBox should open here
+            //reset UI
+        } else if (Double.parseDouble(givenCash.getText()) == Double.parseDouble(totalLabel.getText())) {
+            totalLabel.setText("0.00");
+            //cashBox should open here
+            //reset UI
+        } else if (Double.parseDouble(givenCash.getText()) < Double.parseDouble(totalLabel.getText())) {
+            totalLabel.setText(String.valueOf(Double.parseDouble(totalLabel.getText()) - Double.parseDouble(givenCash.getText())));
+            //cardPayment
+        }
+        else {
+            //cardPayment
+        }
     }
     @FXML
     public void addDiscountToProduct() {
-
+        PRODUCT_TEST_CLASS product = cartTable.getSelectionModel().getSelectedItem();
+        product.setPrice(product.getPrice()-(product.getPrice()*Double.parseDouble(givenDiscount.getText())/100));
+        cartTable.refresh();
+        double totalPrice = Double.parseDouble(totalLabel.getText());
+        double discountedPrice = product.getPrice();;
+        totalPrice = totalPrice-(totalPrice-discountedPrice);
+        totalLabel.setText(String.valueOf(totalPrice));
     }
 
 

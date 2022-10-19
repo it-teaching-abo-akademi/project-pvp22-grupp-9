@@ -12,11 +12,11 @@
           <TableColumn fx:id="customerTablePrice" prefWidth="165.0" text="Price" />
         </columns>
       </TableView>
-      <Label layoutX="154.0" layoutY="539.0" prefHeight="41.0" prefWidth="158.0" text="Total amount :">
+      <Label layoutX="154.0" layoutY="539.0" prefHeight="41.0" prefWidth="158.0" text="Total amount:">
          <font>
             <Font size="23.0" />
          </font></Label>
-      <Label fx:id="customerLabel" layoutX="321.0" layoutY="544.0" text="--">
+      <Label fx:id="customerLabel" layoutX="321.0" layoutY="544.0" text="0.00">
          <font>
             <Font size="21.0" />
          </font></Label>
