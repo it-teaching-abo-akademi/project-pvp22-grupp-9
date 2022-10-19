@@ -9,6 +9,7 @@ import com.example.pos_system_version_xx.models.Barcode;
 import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
 import com.example.pos_system_version_xx.models.Product;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -87,7 +88,7 @@ public class CashierGUI extends Window {
     @FXML
     public void requestRemoveProduct() {
         PRODUCT_TEST_CLASS product = cartTable.getSelectionModel().getSelectedItem();
-        fireEvent(new ProductRemoveRequested(product.toProduct(product)));
+        fireEvent(new ProductRemoveRequested(product));
     }
 
     //@FXML >> old parameters: (Product product, double discount)
@@ -107,25 +108,23 @@ public class CashierGUI extends Window {
 
     // These are called to alter the UI elements within this GUI
 
-    public void addProduct(Product product) {
-        cartTable.setItems(FXCollections.observableArrayList(
-                new PRODUCT_TEST_CLASS(product.getName(), product.getBarcode())
-        ));
+    public void addProduct(PRODUCT_TEST_CLASS PTC) {
+        //cartTable.setItems(FXCollections.observableArrayList(PTC));
+        cartTable.getItems().add(PTC);
 
-        double totalPrice = Double.parseDouble(totalLabel.getText());
+        /*double totalPrice = Double.parseDouble(totalLabel.getText());
         double addedPrice = product.getPrice();;
         totalPrice = totalPrice+addedPrice;
-        totalLabel.setText(String.valueOf(totalPrice));
+        totalLabel.setText(String.valueOf(totalPrice));*/
     }
 
-    public void removeProduct(Product product) {
-        PRODUCT_TEST_CLASS PTC = cartTable.getSelectionModel().getSelectedItem();
+    public void removeProduct(PRODUCT_TEST_CLASS PTC) {
         cartTable.getItems().remove(PTC);
 
-        double totalPrice = Double.parseDouble(totalLabel.getText());
+        /*double totalPrice = Double.parseDouble(totalLabel.getText());
         double removedPrice = product.getPrice();;
         totalPrice = totalPrice-removedPrice;
-        totalLabel.setText(String.valueOf(totalPrice));
+        totalLabel.setText(String.valueOf(totalPrice));*/
     }
 
     public void updateProduct(Product product) {

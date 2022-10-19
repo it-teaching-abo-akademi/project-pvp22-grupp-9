@@ -1,6 +1,7 @@
 package com.example.pos_system_version_xx.events;
 
 import com.example.pos_system_version_xx.GET.SearchParamType;
+import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
 import com.example.pos_system_version_xx.models.Product;
 import javafx.event.EventHandler;
 
@@ -10,7 +11,7 @@ public abstract class SaleEventHandler implements EventHandler<CustomEvent> {
 
     public abstract void onProductAddRequested(Product param0);
 
-    public abstract void onProductRemoveRequested(Product param0);
+    public abstract void onProductRemoveRequested(PRODUCT_TEST_CLASS param0);
 
     public abstract void onProductDiscountRequested(Product param0, double param1);
 
