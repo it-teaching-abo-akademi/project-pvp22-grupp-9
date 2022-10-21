@@ -17,7 +17,7 @@ public abstract class SaleEventHandler implements EventHandler<CustomEvent> {
 
     public abstract void onGetProductsRequested(String keyword, SearchParamType type);
 
-    public abstract void onStartPaymentRequested();
+    public abstract void onStartPaymentRequested(double param0, double param1);
 
     public abstract void onOpenCashboxRequested();
 

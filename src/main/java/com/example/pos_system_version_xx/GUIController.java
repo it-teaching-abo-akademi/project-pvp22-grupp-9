@@ -100,6 +100,23 @@ public class GUIController {
         return findProducts("*", SearchParamType.NAME);
     }
 
-    //public void openCashbox() { requestHandler.handlerOpenCashbox();
+    public String openCashbox() {
+        String response = "";
+        try {
+            response = requestHandler.handlerOpenCashbox();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
 
+    public String startCardReader(double remainingTotal) {
+        String response = "";
+        try {
+            response = requestHandler.handlerCardReaderWaitForPayment(remainingTotal);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
 }

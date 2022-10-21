@@ -1,5 +1,6 @@
 package com.example.pos_system_version_xx;
 
+import com.example.pos_system_version_xx.GET.RequestHandler;
 import com.example.pos_system_version_xx.GET.SearchParamType;
 import com.example.pos_system_version_xx.GUIElements.CashierGUI;
 import com.example.pos_system_version_xx.GUIElements.CustomerGUI;
@@ -91,6 +92,29 @@ public class GUIApplication extends Application {
             e.printStackTrace();
         }
         stage.setTitle("Cashier");
+
+        Stage salesmanStage = new Stage();
+        FXMLLoader fxmlLoader3 = new FXMLLoader(GUIApplication.class.getResource("salesman-view.fxml"));
+        try {
+            Scene scene3 = new Scene(fxmlLoader3.load(), 600, 600);
+            salesmanStage.setScene(scene3);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        salesmanStage.setTitle("Salesman");
+
+        Stage marketingCoordinatorStage = new Stage();
+        FXMLLoader fxmlLoader4 = new FXMLLoader(GUIApplication.class.getResource("marketingcoordinator-view.fxml"));
+        try {
+            Scene scene4 = new Scene(fxmlLoader4.load(), 600, 600);
+            marketingCoordinatorStage.setScene(scene4);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        marketingCoordinatorStage.setTitle("Marketing Coordinator");
+
+        salesmanStage.show();
+        marketingCoordinatorStage.show();
         stage.show();
 
         cashier = fxmlLoader.getController();
@@ -150,8 +174,21 @@ public class GUIApplication extends Application {
             }
 
             @Override
-            public void onStartPaymentRequested() {
+            public void onStartPaymentRequested(double total, double cash) {
+                if (cash < total) {
+                    String response = controller.startCardReader(total - cash);
+                    System.out.println(response);
+                }
 
+                if (cash > total) {
+                    //onOpenCashboxRequested()
+                    //reset UI
+                } else if (cash == total) {
+                    //onOpenCashboxRequested()
+                    //reset UI
+                } else if (cash < total) {
+                    //cardPayment
+                }
             }
 
             @Override
@@ -178,28 +215,6 @@ public class GUIApplication extends Application {
         }
         customerStage.setTitle("Customer");
         customerStage.show();
-
-        Stage salesmanStage = new Stage();
-        FXMLLoader fxmlLoader3 = new FXMLLoader(GUIApplication.class.getResource("salesman-view.fxml"));
-        try {
-            Scene scene3 = new Scene(fxmlLoader3.load(), 600, 600);
-            salesmanStage.setScene(scene3);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        salesmanStage.setTitle("Salesman");
-        salesmanStage.show();
-
-        Stage marketingCoordinatorStage = new Stage();
-        FXMLLoader fxmlLoader4 = new FXMLLoader(GUIApplication.class.getResource("marketingcoordinator-view.fxml"));
-        try {
-            Scene scene4 = new Scene(fxmlLoader4.load(), 600, 600);
-            marketingCoordinatorStage.setScene(scene4);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        marketingCoordinatorStage.setTitle("Marketing Coordinator");
-        marketingCoordinatorStage.show();
 
         customer = fxmlLoader2.getController();
         salesman = fxmlLoader3.getController();

@@ -153,22 +153,10 @@ public class CashierGUI extends Window {
     @FXML
     //connected to the "Start payment" button
     public void startPaymentMode() {
-        if (Double.parseDouble(givenCash.getText()) > Double.parseDouble(totalLabel.getText())) {
-            changeLabel.setText(String.valueOf(Double.parseDouble(givenCash.getText()) - Double.parseDouble(totalLabel.getText())));
-            totalLabel.setText("0.00");
-            //cashBox should open here
-            //reset UI
-        } else if (Double.parseDouble(givenCash.getText()) == Double.parseDouble(totalLabel.getText())) {
-            totalLabel.setText("0.00");
-            //cashBox should open here
-            //reset UI
-        } else if (Double.parseDouble(givenCash.getText()) < Double.parseDouble(totalLabel.getText())) {
-            totalLabel.setText(String.valueOf(Double.parseDouble(totalLabel.getText()) - Double.parseDouble(givenCash.getText())));
-            //cardPayment
-        }
-        else {
-            //cardPayment
-        }
+        double total = Double.parseDouble(totalLabel.getText());
+        double cashAmount = Double.parseDouble(givenCash.getText());
+
+        fireEvent(new OnStartPaymentRequested(total, cashAmount));
     }
     @FXML
     public void addDiscountToProduct() {
