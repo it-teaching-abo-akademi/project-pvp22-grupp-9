@@ -106,9 +106,9 @@ public class GUIApplication extends Application {
 
                 PRODUCT_TEST_CLASS PTC = new PRODUCT_TEST_CLASS(product.getName(), product.getBarcode());
 
-                controller.addProduct(product);
-                cashier.addProduct(PTC);
-                customer.addProduct(PTC);
+                double total = controller.addProduct(product);
+                cashier.addProduct(PTC, total);
+                customer.addProduct(PTC, total);
             }
 
             @Override
@@ -123,9 +123,9 @@ public class GUIApplication extends Application {
                     System.out.println("No product selected");
                     return; // error
                 }
-                controller.addProduct(PTC.toProduct(PTC));
-                cashier.addProduct(PTC);
-                customer.addProduct(PTC);
+                double total = controller.addProduct(PTC.toProduct(PTC));
+                cashier.addProduct(PTC, total);
+                customer.addProduct(PTC, total);
             }
 
             @Override
@@ -136,9 +136,9 @@ public class GUIApplication extends Application {
                 }
                 Product product = PTC.toProduct(PTC);
 
-                //controller.removeProduct(product);
-                cashier.removeProduct(PTC);
-                customer.removeProduct(PTC);
+                double total = controller.removeProduct(product);
+                cashier.removeProduct(PTC, total);
+                customer.removeProduct(PTC, total);
             }
 
             @Override

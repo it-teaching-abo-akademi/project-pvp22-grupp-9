@@ -26,7 +26,7 @@ import java.io.IOException;
 
 public class CustomerGUI extends Window {
 
-    @FXML private Label customerLabel;
+    @FXML private Label totalLabel;
 
     @FXML private TableView<PRODUCT_TEST_CLASS> customerTable;
 
@@ -43,12 +43,14 @@ public class CustomerGUI extends Window {
         customerTablePrice.setCellValueFactory(new PropertyValueFactory<PRODUCT_TEST_CLASS, Double>("price"));
     }
 
-    public void addProduct(PRODUCT_TEST_CLASS PTC) {
+    public void addProduct(PRODUCT_TEST_CLASS PTC, double total) {
         customerTable.getItems().add(PTC);
+        totalLabel.setText(Double.toString(total));
     }
 
-    public void removeProduct(PRODUCT_TEST_CLASS PTC) {
+    public void removeProduct(PRODUCT_TEST_CLASS PTC, double total) {
         customerTable.getItems().remove(PTC);
+        totalLabel.setText(Double.toString(total));
     }
 
     public void updateProduct(Product product) {

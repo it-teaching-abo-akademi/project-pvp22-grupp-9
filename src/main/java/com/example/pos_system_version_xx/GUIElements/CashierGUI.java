@@ -127,19 +127,19 @@ public class CashierGUI extends Window {
 
     // These are called to alter the UI elements within this GUI
 
-    public void addProduct(PRODUCT_TEST_CLASS PTC) {
+    public void addProduct(PRODUCT_TEST_CLASS PTC, double total) {
         //cartTable.setItems(FXCollections.observableArrayList(PTC));
         cartTable.getItems().add(PTC);
-
+        totalLabel.setText(Double.toString(total));
         /*double totalPrice = Double.parseDouble(totalLabel.getText());
         double addedPrice = product.getPrice();
         totalPrice = totalPrice+addedPrice;
         totalLabel.setText(String.valueOf(totalPrice));*/
     }
 
-    public void removeProduct(PRODUCT_TEST_CLASS PTC) {
+    public void removeProduct(PRODUCT_TEST_CLASS PTC, double total) {
         cartTable.getItems().remove(PTC);
-
+        totalLabel.setText(Double.toString(total));
         /*double totalPrice = Double.parseDouble(totalLabel.getText());
         double removedPrice = product.getPrice();;
         totalPrice = totalPrice-removedPrice;

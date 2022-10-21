@@ -29,7 +29,7 @@ public class GUIController {
 
 
     public GUIController() {
-        order = new Order();
+        order = new Order(); //WARNING: change in order to use shelf
         requestHandler = new RequestHandler();
         parser = new XMLParser();
     }
@@ -84,13 +84,12 @@ public class GUIController {
         order.printProducts();
     }
 
-    public void addProduct(Product product) {
-        //TODO: add to shopping cart
-
+    public double addProduct(Product product) {
+        return order.addProduct(product);
     }
 
-    public void removeProduct(Product product) {
-        order.removeProduct(product);
+    public double removeProduct(Product product) {
+        return order.removeProduct(product);
     }
 
     public void addDiscountToProduct(Product product, double amount) {
