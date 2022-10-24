@@ -119,4 +119,24 @@ public class GUIController {
         }
         return response;
     }
+
+    public String cardReaderStatus() {
+        String response = "";
+        try {
+            response = requestHandler.handlerCardReaderStatus();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    public String resetCardReader() {
+        String response = "";
+        try {
+            response = requestHandler.handlerCardReaderReset();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
 }

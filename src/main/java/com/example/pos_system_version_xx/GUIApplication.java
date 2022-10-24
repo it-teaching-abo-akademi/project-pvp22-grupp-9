@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 //@SpringBootApplication //remove comment when springboot works
 public class GUIApplication extends Application {
@@ -175,20 +176,25 @@ public class GUIApplication extends Application {
 
             @Override
             public void onStartPaymentRequested(double total, double cash) {
+                double change;
                 if (cash < total) {
-                    String response = controller.startCardReader(total - cash);
-                    System.out.println(response);
+                    //card payment necessary
+                    controller.startCardReader(total - cash);
+                    while ( ! controller.cardReaderStatus().contains("DONE") ) {
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (Exception e) { System.out.println("Interrupted clock"); }
+                    }
+                    controller.resetCardReader();
+                    change = 0.0;
+                }
+                else {
+                    //all payment by cash
+                    change = total-cash;
+                    controller.openCashbox();
                 }
 
-                if (cash > total) {
-                    //onOpenCashboxRequested()
-                    //reset UI
-                } else if (cash == total) {
-                    //onOpenCashboxRequested()
-                    //reset UI
-                } else if (cash < total) {
-                    //cardPayment
-                }
+                cashier.endPaymentMode(change);
             }
 
             @Override

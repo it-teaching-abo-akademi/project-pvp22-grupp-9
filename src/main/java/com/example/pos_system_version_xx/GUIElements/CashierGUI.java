@@ -154,10 +154,22 @@ public class CashierGUI extends Window {
     //connected to the "Start payment" button
     public void startPaymentMode() {
         double total = Double.parseDouble(totalLabel.getText());
-        double cashAmount = Double.parseDouble(givenCash.getText());
-
+        double cashAmount = 0.0;
+        String cashAmountString = givenCash.getText();
+        if (cashAmountString != "") {
+            try {
+                cashAmount = Double.parseDouble(cashAmountString);
+            } catch (Exception e) { System.out.println("Bad input"); }
+        }
         fireEvent(new OnStartPaymentRequested(total, cashAmount));
     }
+
+    public void endPaymentMode(double change) {
+        changeLabel.setText(Double.toString(change));
+        //endLabel."changeColor"("GREEN");
+        //endLabel.setText("SALE FINISHED");
+    }
+
     @FXML
     public void addDiscountToProduct() {
         PRODUCT_TEST_CLASS product = cartTable.getSelectionModel().getSelectedItem();
@@ -178,4 +190,5 @@ public class CashierGUI extends Window {
         }
         productTable.setItems(FXCollections.observableArrayList(PTC));
     }
+
 }
