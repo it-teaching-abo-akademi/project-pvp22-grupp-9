@@ -13,10 +13,14 @@ import com.example.pos_system_version_xx.models.Product;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -195,6 +199,9 @@ public class GUIApplication extends Application {
                 }
 
                 cashier.endPaymentMode(change);
+
+                //print receipt?
+                customer.printReceipt();
             }
 
             @Override
