@@ -16,6 +16,17 @@ public class Order {
         }
     }
 
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(ArrayList<Product> productList) {
+        products.clear();
+        for (Product p : productList ) {
+            products.add(p);
+        }
+    }
+
     public double addProduct(Product product) {
         products.add(product);
         total += product.getPrice();
@@ -29,5 +40,9 @@ public class Order {
     }
 
     public double getTotal() { return total; }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
 
 }

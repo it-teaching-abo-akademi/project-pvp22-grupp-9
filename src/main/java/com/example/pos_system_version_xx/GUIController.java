@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class GUIController {
 
     private Order order;
+    private Order shelfOrder;
 
     private RequestHandler requestHandler;
     private XMLParser parser;
@@ -30,6 +31,7 @@ public class GUIController {
 
     public GUIController() {
         order = new Order(); //WARNING: change in order to use shelf
+        shelfOrder = new Order();
         requestHandler = new RequestHandler();
         parser = new XMLParser();
     }
@@ -82,6 +84,22 @@ public class GUIController {
 
     public void printProducts() {
         order.printProducts();
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public Order getShelfOrder() {
+        return shelfOrder;
+    }
+
+    public void setShelfOrder(Order order) {
+        shelfOrder = order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public double addProduct(Product product) {

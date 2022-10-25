@@ -8,6 +8,7 @@ import com.example.pos_system_version_xx.GUIElements.MarketingCoordinatorGUI;
 import com.example.pos_system_version_xx.GUIElements.SalesmanGUI;
 import com.example.pos_system_version_xx.events.CustomEvent;
 import com.example.pos_system_version_xx.events.SaleEventHandler;
+import com.example.pos_system_version_xx.models.Order;
 import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
 import com.example.pos_system_version_xx.models.Product;
 import javafx.application.Application;
@@ -22,7 +23,7 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 //@SpringBootApplication //remove comment when springboot works
@@ -87,6 +88,8 @@ public class GUIApplication extends Application {
     private MarketingCoordinatorGUI marketingCoordinator;
     private GUIController controller;
 
+    private HashMap<PRODUCT_TEST_CLASS, Product> productMap;
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GUIApplication.class.getResource("cashier-view.fxml"));
@@ -138,6 +141,7 @@ public class GUIApplication extends Application {
                 double total = controller.addProduct(product);
                 cashier.addProduct(PTC, total);
                 customer.addProduct(PTC, total);
+                productMap.put(PTC, product);
             }
 
             @Override
@@ -152,9 +156,12 @@ public class GUIApplication extends Application {
                     System.out.println("No product selected");
                     return; // error
                 }
-                double total = controller.addProduct(PTC.toProduct(PTC));
-                cashier.addProduct(PTC, total);
-                customer.addProduct(PTC, total);
+                Product product = PTC.toProduct(PTC);
+                double total = controller.addProduct(product);
+                PRODUCT_TEST_CLASS ptc = new PRODUCT_TEST_CLASS(product.getName(), product.getBarcode());
+                productMap.put(ptc, product);
+                cashier.addProduct(ptc, total);
+                customer.addProduct(ptc, total);
             }
 
             @Override
@@ -163,19 +170,26 @@ public class GUIApplication extends Application {
                     System.out.println("Product not found");
                     return;     // error
                 }
-                Product product = PTC.toProduct(PTC);
-
+                Product product = productMap.get(PTC);
                 double total = controller.removeProduct(product);
                 cashier.removeProduct(PTC, total);
                 customer.removeProduct(PTC, total);
+                productMap.remove(PTC,product);
             }
 
             @Override
-            public void onProductDiscountRequested(Product param0, double param1) {
-                if (param0 == null) {
-                    System.out.println("Product not found");
-                    return;     // error
-                }
+            public void onProductDiscountRequested(PRODUCT_TEST_CLASS PTC, double discount) {
+                double discountedPrice = PTC.getPrice()*(discount/100);
+                PTC.setPrice(PTC.getPrice()-(discountedPrice));
+                Product product = productMap.get(PTC);
+                product.setPrice(product.getPrice()-(discountedPrice));
+                double totalPrice = controller.getOrder().getTotal();
+                totalPrice -= discountedPrice;
+                controller.getOrder().setTotal(totalPrice);
+                cashier.setTotalLabel(String.valueOf(totalPrice));
+                customer.setTotalLabel(String.valueOf(totalPrice));
+                cashier.refresh();
+                customer.refresh();
             }
 
             @Override
@@ -205,8 +219,12 @@ public class GUIApplication extends Application {
             }
 
             @Override
-            public void onOpenCashboxRequested() {
-
+            public void onResetRequested() {
+                productMap.clear();
+                customer.reset();
+                cashier.reset();
+                controller.getOrder().getProducts().clear();
+                controller.getOrder().setTotal(0.0);
             }
 
             @Override
@@ -215,6 +233,37 @@ public class GUIApplication extends Application {
                 ArrayList<Product> ps = controller.findProducts(param, SearchParamType.NAME);
                 ps.addAll(controller.findProducts(param, SearchParamType.KEYWORD));
                 cashier.addToProductCatalog(ps);
+            }
+
+            @Override
+            public void onShelfProductsRequested() {
+                if (controller.getShelfOrder().getProducts().isEmpty()) {
+                    controller.getShelfOrder().setProducts(controller.getOrder().getProducts());
+                    controller.getShelfOrder().setTotal(controller.getOrder().getTotal());
+                    customer.reset();
+                    cashier.reset();
+                    controller.getOrder().getProducts().clear();
+                    controller.getOrder().setTotal(0.0);
+                    productMap.clear();
+                }
+                else {
+                    controller.getOrder().setProducts(controller.getShelfOrder().getProducts());
+                    controller.getOrder().setTotal(controller.getShelfOrder().getTotal());
+                    productMap.clear();
+                    ArrayList<PRODUCT_TEST_CLASS> PTC = new ArrayList<PRODUCT_TEST_CLASS>();
+                    for (Product p : controller.getShelfOrder().getProducts()) {
+                        PRODUCT_TEST_CLASS P = new PRODUCT_TEST_CLASS(p.getName(), p.getBarcode());
+                        P.setPrice(p.getPrice());
+                        PTC.add(P);
+                        productMap.put(P,p);
+                    }
+                    controller.getShelfOrder().getProducts().clear();
+                    controller.getShelfOrder().setTotal(0.0);
+                    cashier.addToCartTable(PTC);
+                    cashier.setTotalLabel(Double.toString(controller.getOrder().getTotal()));
+                    customer.addToCartTable(PTC);
+                    customer.setTotalLabel(Double.toString(controller.getOrder().getTotal()));
+                }
             }
         });
 
@@ -235,6 +284,7 @@ public class GUIApplication extends Application {
         customer.setupCustomerTable();
         cashier.setupCashierTables();
         cashier.addToProductCatalog(controller.getAllProducts());
+        productMap = new HashMap<PRODUCT_TEST_CLASS, Product>();
     }
 
     public static void main(String[] args)

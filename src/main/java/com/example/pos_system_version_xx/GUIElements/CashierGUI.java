@@ -37,6 +37,8 @@ public class CashierGUI extends Window {
     //GUI elements must be accessed independently, and cannot be passed as arguments to functions
     @FXML private Label totalLabel;
     @FXML private Label changeLabel;
+
+    @FXML private Label endLabel;
     @FXML private TextField givenCash; //convert this String to double
     @FXML private TextField givenDiscount; //convert to int
     @FXML private TextField givenKeyword;
@@ -55,15 +57,8 @@ public class CashierGUI extends Window {
     }
 
     @FXML
-    public void onHelloButtonClick() {
-        WritableImage image = productTable.getScene().snapshot(null);
-
-        File file = new File("receipt.png");
-        try {
-            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-        } catch (IOException e) {
-            // TODO: handle exception here
-        }
+    public void resetRequested() {
+        fireEvent(new ResetRequested());
     }
 
     public void setupCashierTables() {
@@ -107,14 +102,15 @@ public class CashierGUI extends Window {
         fireEvent(new ProductRemoveRequested(product));
     }
 
-    //@FXML >> old parameters: (Product product, double discount)
+    @FXML
     public void requestAddDiscount() {
-
-        //fireEvent(new ProductDiscountRequested(product, discount));
+        fireEvent(new ProductDiscountRequested(cartTable.getSelectionModel().getSelectedItem(), Double.parseDouble(givenDiscount.getText())));
     }
 
     @FXML
-    public void requestShelfSale() {}
+    public void requestShelfSale() {
+        fireEvent(new OnShelfProductsRequested());
+    }
 
     @FXML
     public void requestOpenCashbox() {}
@@ -166,22 +162,8 @@ public class CashierGUI extends Window {
 
     public void endPaymentMode(double change) {
         changeLabel.setText(Double.toString(change));
-        //endLabel."changeColor"("GREEN");
-        //endLabel.setText("SALE FINISHED");
+        endLabel.setVisible(true);
     }
-
-    @FXML
-    public void addDiscountToProduct() {
-        PRODUCT_TEST_CLASS product = cartTable.getSelectionModel().getSelectedItem();
-        product.setPrice(product.getPrice()-(product.getPrice()*Double.parseDouble(givenDiscount.getText())/100));
-        cartTable.refresh();
-        double totalPrice = Double.parseDouble(totalLabel.getText());
-        double discountedPrice = product.getPrice();;
-        totalPrice = totalPrice-(totalPrice-discountedPrice);
-        totalLabel.setText(String.valueOf(totalPrice));
-    }
-
-
 
     public void addToProductCatalog(ArrayList<Product> products) {
         ArrayList<PRODUCT_TEST_CLASS> PTC = new ArrayList<PRODUCT_TEST_CLASS>();
@@ -191,4 +173,23 @@ public class CashierGUI extends Window {
         productTable.setItems(FXCollections.observableArrayList(PTC));
     }
 
+    public void reset() {
+        cartTable.getItems().clear();
+        totalLabel.setText("0.0");
+        changeLabel.setText("0.0");
+        endLabel.setVisible(false);
+    }
+
+    public void refresh() {
+        cartTable.refresh();
+        productTable.refresh();
+    }
+
+    public void addToCartTable(ArrayList<PRODUCT_TEST_CLASS> PTC) {
+        cartTable.setItems(FXCollections.observableArrayList(PTC));
+    }
+
+    public void setTotalLabel(String total) {
+        totalLabel.setText(total);
+    }
 }

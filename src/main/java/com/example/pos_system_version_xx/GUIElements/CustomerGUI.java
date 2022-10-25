@@ -23,6 +23,7 @@ import javafx.stage.Window;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class CustomerGUI extends Window {
 
@@ -51,6 +52,23 @@ public class CustomerGUI extends Window {
     public void removeProduct(PRODUCT_TEST_CLASS PTC, double total) {
         customerTable.getItems().remove(PTC);
         totalLabel.setText(Double.toString(total));
+    }
+
+    public void reset() {
+        customerTable.getItems().clear();
+        totalLabel.setText("0.0");
+    }
+
+    public void refresh() {
+        customerTable.refresh();
+    }
+
+    public void addToCartTable(ArrayList<PRODUCT_TEST_CLASS> PTC) {
+        customerTable.setItems(FXCollections.observableArrayList(PTC));
+    }
+
+    public void setTotalLabel(String total) {
+        totalLabel.setText(total);
     }
 
     public void updateProduct(Product product) {
