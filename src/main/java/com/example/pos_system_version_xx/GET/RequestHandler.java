@@ -87,24 +87,6 @@ public class RequestHandler {
         return httpRequest("GET", FIND_BONUS_CARD, bonusCardNumber + "/" + goodThruYear + "/" + goodThruMonth, "");
     }
 
-    public static void main(String[] args) throws IOException {
-        //handlerFindBarcode("12345");
-        //handlerFindKeyword("fruit");
-        //handlerFindName("Bananas");
-        //handlerOpenCashbox();
-        //handlerCashboxStatus();
-        //handlerCardReaderWaitForPayment(1234567890);
-        //handlerCardReaderAbort();
-        //handlerCardReaderStatus();
-        //handlerCardReaderResult(); // can only be called after payment, returns xml for payment card as response
-        //handlerCardReaderReset();
-        //handlerFindCustomerNo("1");
-        //handlerFindBonusCard("1234567890", "2999", "6");
-        //handlerCardReaderAbortPayment();
-        //handlerCardReaderResult();
-        //handlerCardReaderReset();
-    }
-
     private static String httpRequest(String requestType, String URL, String argument, String data) throws IOException {
         java.net.URL url = new URL(URL + "/" + argument);
         System.out.println(url);
