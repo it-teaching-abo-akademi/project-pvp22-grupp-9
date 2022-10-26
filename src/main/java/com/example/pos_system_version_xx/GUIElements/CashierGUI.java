@@ -169,6 +169,17 @@ public class CashierGUI extends Window {
         return null;
     }
 
+    public void updatePrices(ArrayList<Product> products) {
+        for (Product p : products) {
+            double price = p.getPrice();
+            for (PRODUCT_TEST_CLASS PTC : productTable.getItems()) {
+                if (p.getBarcode().equals(PTC.getBarcode())) {
+                    PTC.setPrice(price);
+                }
+            }
+        }
+    }
+
     public void reset() {
         cartTable.getItems().clear();
         totalLabel.setText("0.0");

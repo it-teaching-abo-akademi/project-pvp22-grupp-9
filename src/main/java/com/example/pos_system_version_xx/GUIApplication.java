@@ -170,6 +170,7 @@ public class GUIApplication extends Application {
                 ArrayList<Product> ps = controller.findProducts(param, SearchParamType.NAME);
                 ps.addAll(controller.findProducts(param, SearchParamType.KEYWORD));
                 cashier.addToProductCatalog(ps);
+                cashier.updatePrices(salesman.getAllProducts());
             }
 
             @Override
