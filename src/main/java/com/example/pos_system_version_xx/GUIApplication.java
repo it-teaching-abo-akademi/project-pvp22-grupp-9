@@ -1,91 +1,35 @@
 package com.example.pos_system_version_xx;
 
-import com.example.pos_system_version_xx.GET.RequestHandler;
 import com.example.pos_system_version_xx.GET.SearchParamType;
 import com.example.pos_system_version_xx.GUIElements.CashierGUI;
 import com.example.pos_system_version_xx.GUIElements.CustomerGUI;
-import com.example.pos_system_version_xx.GUIElements.MarketingCoordinatorGUI;
 import com.example.pos_system_version_xx.GUIElements.SalesmanGUI;
 import com.example.pos_system_version_xx.events.CustomEvent;
 import com.example.pos_system_version_xx.events.SaleEventHandler;
-import com.example.pos_system_version_xx.models.Order;
 import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
 import com.example.pos_system_version_xx.models.Product;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-//@SpringBootApplication //remove comment when springboot works
 public class GUIApplication extends Application {
 
     public GUIApplication() {
         controller = new GUIController();
     }
 
-
-
-    /* IF WE WANT: THE CUSTOMER CAN DO STUFF
-        customer.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new SaleEventHandler() {
-
-        @Override
-        public void onProductAddRequested(String barcode) {
-            Product product = controller.findProduct(barcode);
-            if (product == null) {
-                // error
-            }
-
-            controller.addProduct(product);
-            cashier.addProduct(product);
-            customer.addProduct(product);
-        }
-
-        @Override
-        public void onProductRemoveRequested(Product product) {
-            controller.removeProduct(product);
-            cashier.removeProduct(product);
-            customer.removeProduct(product);
-        }
-
-        @Override
-        public void onProductDiscountRequested(Product product, double amount) {
-                /*
-                boolean accepted = cashier.addCustomerRequest( ""+ "The customer is requesting to add a "
-                     + amount * 100
-                      + " percent discount. Accept?" );
-                 if (accepted) {
-                     cashier.requestAddDiscount(product, amount);
-                 }
-                *\
-        }
-
-        @Override
-        public void onStartPaymentRequested() {
-            customer.startPaymentMode();
-            cashier.startPaymentMode();
-            //controller.waitForPayment();
-        }
-
-    }); */
-
-
-
     private CustomerGUI customer;
     private CashierGUI cashier;
 
     private SalesmanGUI salesman;
 
-    private MarketingCoordinatorGUI marketingCoordinator;
     private GUIController controller;
 
     private HashMap<PRODUCT_TEST_CLASS, Product> productMap;
@@ -111,18 +55,7 @@ public class GUIApplication extends Application {
         }
         salesmanStage.setTitle("Salesman");
 
-        Stage marketingCoordinatorStage = new Stage();
-        FXMLLoader fxmlLoader4 = new FXMLLoader(GUIApplication.class.getResource("marketingcoordinator-view.fxml"));
-        try {
-            Scene scene4 = new Scene(fxmlLoader4.load(), 600, 600);
-            marketingCoordinatorStage.setScene(scene4);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        marketingCoordinatorStage.setTitle("Marketing Coordinator");
-
         salesmanStage.show();
-        marketingCoordinatorStage.show();
         stage.show();
 
         cashier = fxmlLoader.getController();
@@ -130,13 +63,15 @@ public class GUIApplication extends Application {
         cashier.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new SaleEventHandler() {
             @Override
             public void onProductScanRequested(String barcode) {
-                Product product = controller.findProduct(barcode);
+                //Product product = controller.findProduct(barcode);
+                Product product = cashier.getProductFromCatalog(barcode);
                 if (product == null) {
                     System.out.println("Product not found");
                     return;     // error
                 }
 
                 PRODUCT_TEST_CLASS PTC = new PRODUCT_TEST_CLASS(product.getName(), product.getBarcode());
+                PTC.setPrice(product.getPrice());
 
                 double total = controller.addProduct(product);
                 cashier.addProduct(PTC, total);
@@ -159,6 +94,7 @@ public class GUIApplication extends Application {
                 Product product = PTC.toProduct(PTC);
                 double total = controller.addProduct(product);
                 PRODUCT_TEST_CLASS ptc = new PRODUCT_TEST_CLASS(product.getName(), product.getBarcode());
+                ptc.setPrice(product.getPrice());
                 productMap.put(ptc, product);
                 cashier.addProduct(ptc, total);
                 customer.addProduct(ptc, total);
@@ -225,11 +161,12 @@ public class GUIApplication extends Application {
                 cashier.reset();
                 controller.getOrder().getProducts().clear();
                 controller.getOrder().setTotal(0.0);
+                cashier.addToProductCatalog(salesman.getAllProducts());
             }
 
             @Override
             public void onFindKeywordRequested(String param) {
-                if (param == "") { param = "*"; }
+                if (Objects.equals(param, "")) { param = "*"; }
                 ArrayList<Product> ps = controller.findProducts(param, SearchParamType.NAME);
                 ps.addAll(controller.findProducts(param, SearchParamType.KEYWORD));
                 cashier.addToProductCatalog(ps);
@@ -280,10 +217,13 @@ public class GUIApplication extends Application {
 
         customer = fxmlLoader2.getController();
         salesman = fxmlLoader3.getController();
-        marketingCoordinator = fxmlLoader4.getController();
+
+        salesman.setupSalesmanTable();
         customer.setupCustomerTable();
         cashier.setupCashierTables();
-        cashier.addToProductCatalog(controller.getAllProducts());
+
+        salesman.addToProductCatalog(controller.getAllProducts());
+        cashier.addToProductCatalog(salesman.getAllProducts());
         productMap = new HashMap<PRODUCT_TEST_CLASS, Product>();
     }
 

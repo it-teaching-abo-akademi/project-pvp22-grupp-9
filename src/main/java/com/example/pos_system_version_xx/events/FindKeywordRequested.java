@@ -1,6 +1,5 @@
 package com.example.pos_system_version_xx.events;
 
-import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
 import javafx.event.EventType;
 
 public class FindKeywordRequested extends CustomEvent {

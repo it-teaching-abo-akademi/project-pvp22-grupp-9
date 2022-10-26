@@ -39,7 +39,9 @@ public class PRODUCT_TEST_CLASS {
 
     //Converts a PRODUCT_TEST_CLASS to Product
     public Product toProduct(PRODUCT_TEST_CLASS p) {
-        return new Product(p.getName(), p.getBarcode());
+        Product product = new Product(p.getName(), p.getBarcode());
+        product.setPrice(p.getPrice());
+        return product;
     }
 
 }

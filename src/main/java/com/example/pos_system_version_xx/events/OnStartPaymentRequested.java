@@ -1,6 +1,5 @@
 package com.example.pos_system_version_xx.events;
 
-import com.example.pos_system_version_xx.models.Product;
 import javafx.event.EventType;
 
 public class OnStartPaymentRequested extends CustomEvent {

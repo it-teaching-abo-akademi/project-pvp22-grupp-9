@@ -1,21 +1,10 @@
 package com.example.pos_system_version_xx;
 
+import com.example.pos_system_version_xx.GET.RequestHandler;
 import com.example.pos_system_version_xx.GET.SearchParamType;
-import com.example.pos_system_version_xx.GUIElements.CashierGUI;
-import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
-import com.example.pos_system_version_xx.tools.XMLParser;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import com.example.pos_system_version_xx.models.Barcode;
 import com.example.pos_system_version_xx.models.Order;
 import com.example.pos_system_version_xx.models.Product;
-import com.example.pos_system_version_xx.GET.RequestHandler;
+import com.example.pos_system_version_xx.tools.XMLParser;
 
 import java.util.ArrayList;
 
@@ -82,10 +71,6 @@ public class GUIController {
         return products;
     }
 
-    public void printProducts() {
-        order.printProducts();
-    }
-
     public Order getOrder() {
         return order;
     }
@@ -94,24 +79,12 @@ public class GUIController {
         return shelfOrder;
     }
 
-    public void setShelfOrder(Order order) {
-        shelfOrder = order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
     public double addProduct(Product product) {
         return order.addProduct(product);
     }
 
     public double removeProduct(Product product) {
         return order.removeProduct(product);
-    }
-
-    public void addDiscountToProduct(Product product, double amount) {
-        product.setDiscount(amount);
     }
 
     public ArrayList<Product> getAllProducts() {

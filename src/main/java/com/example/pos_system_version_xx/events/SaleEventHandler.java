@@ -1,9 +1,7 @@
 package com.example.pos_system_version_xx.events;
 
 import com.example.pos_system_version_xx.GET.SearchParamType;
-import com.example.pos_system_version_xx.models.Order;
 import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
-import com.example.pos_system_version_xx.models.Product;
 import javafx.event.EventHandler;
 
 public abstract class SaleEventHandler implements EventHandler<CustomEvent> {

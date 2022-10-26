@@ -1,6 +1,5 @@
 package com.example.pos_system_version_xx.events;
 
-import com.example.pos_system_version_xx.GET.SearchParamType;
 import javafx.event.EventType;
 
 public class OnShelfProductsRequested extends CustomEvent {

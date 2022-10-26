@@ -1,23 +1,15 @@
 package com.example.pos_system_version_xx.GUIElements;
 
-import com.example.pos_system_version_xx.GUIApplication;
-import com.example.pos_system_version_xx.GUIController;
 import com.example.pos_system_version_xx.models.PRODUCT_TEST_CLASS;
 import com.example.pos_system_version_xx.models.Product;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.control.Label;
-import javafx.fxml.FXML;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import javax.imageio.ImageIO;
