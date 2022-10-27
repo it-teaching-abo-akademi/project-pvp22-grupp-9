@@ -117,10 +117,6 @@ In an abstract form, the flow following a button click, can be described like th
 
 Button is clicked -> CustomerGUI fires an event -> event is handled -> GUIApplication handles the event [requests and logic is performed] -> the GUIs update their tables or labels if necessary. 
  
-
- 
 ADDITIONAL REMARKS REGARDING CLASSES 
 
 There are two types of product classes. One named Product used in the backend (GUIApplication and GUIController), and one named PRODUCT_TEST_CLASS used in the frontend (GUI classes). This is because the GUI tables require objects of type Simple<something>Property (etc.) which are different from ordinary <something> objects, such as String and double.  
-
- 
